@@ -1,4 +1,4 @@
-<Hello Everybody>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -33,7 +33,6 @@
                 <p class="text-center text-blue-200 mt-2">200 câu hỏi trong 20 phút</p>
             </div>
 
-            <!-- Thanh điều hướng các cửa sổ -->
             <nav class="flex flex-wrap justify-center border-b border-gray-200 bg-gray-50">
                 <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="name">1. Tên</button>
                 <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="quiz" disabled>2. Bài làm</button>
@@ -43,9 +42,7 @@
             </nav>
 
             <main class="p-6 sm:p-8">
-                <!-- Cửa sổ 1: Nhập tên -->
                 <div id="name" class="tab-content">
-                    <!-- SỬA ĐỔI: Thay đổi màu tiêu đề -->
                     <h2 class="text-2xl font-semibold mb-4 text-center text-blue-800">Chào mừng bạn!</h2>
                     <p class="text-center text-gray-700 mb-6">Vui lòng nhập tên của bạn để bắt đầu bài kiểm tra.</p>
                     <div class="max-w-sm mx-auto">
@@ -54,48 +51,36 @@
                     </div>
                 </div>
 
-                <!-- Cửa sổ 2: Bài làm -->
                 <div id="quiz" class="tab-content hide">
                     <div class="flex justify-between items-center mb-6">
-                        <!-- SỬA ĐỔI: Thay đổi màu tiêu đề -->
                         <h2 class="text-2xl font-semibold text-blue-800">Câu hỏi</h2>
                         <div id="timer" class="text-xl font-bold bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">20:00</div>
                     </div>
                     <div id="quiz-container" class="space-y-6">
-                        <!-- Các câu hỏi sẽ được chèn vào đây bởi JavaScript -->
-                    </div>
+                        </div>
                     <button id="submitBtn" class="w-full mt-8 bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Nộp bài</button>
                 </div>
 
-                <!-- Cửa sổ 3: Kết quả -->
                 <div id="result" class="tab-content hide text-center">
-                    <!-- SỬA ĐỔI: Thay đổi màu tiêu đề -->
                     <h2 class="text-2xl font-semibold mb-4 text-blue-800">Hoàn thành!</h2>
                     <div id="result-content" class="bg-gray-50 p-8 rounded-lg space-y-3 max-w-md mx-auto">
-                        <!-- Nội dung kết quả sẽ được chèn vào đây -->
-                    </div>
+                        </div>
                     <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4">
                         <button id="retakeBtn" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105">Làm lại</button>
                         <button id="reviewAnswersBtn" class="w-full sm:w-auto bg-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-600 transition-transform transform hover:scale-105">Xem đáp án</button>
                     </div>
                 </div>
 
-                <!-- Cửa sổ 4: Đáp án -->
                 <div id="answers" class="tab-content hide">
-                    <!-- SỬA ĐỔI: Thay đổi màu tiêu đề -->
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Đáp án chi tiết</h2>
                     <div id="answers-container" class="space-y-4">
-                        <!-- Nội dung đáp án sẽ được chèn vào đây -->
-                    </div>
+                        </div>
                 </div>
 
-                <!-- Cửa sổ 5: Lịch sử -->
                 <div id="history" class="tab-content hide">
-                    <!-- SỬA ĐỔI: Thay đổi màu tiêu đề -->
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Lịch sử làm bài</h2>
                     <div id="history-container" class="overflow-x-auto">
-                        <!-- Bảng lịch sử sẽ được chèn vào đây -->
-                    </div>
+                        </div>
                 </div>
             </main>
         </div>
@@ -446,23 +431,26 @@
                 showTab('result');
             };
 
+            // SỬA ĐỔI: Lưu kết quả của tất cả người dùng
             const saveResult = (result) => {
                 try {
+                    // Lấy lịch sử hiện có, thêm kết quả mới và lưu lại
                     let history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
-                    history.unshift(result);
+                    history.unshift(result); // Thêm vào đầu mảng
                     localStorage.setItem('vocabTestHistory', JSON.stringify(history));
                 } catch (e) {
                     console.error("Không thể lưu vào localStorage:", e);
                 }
             };
             
+            // SỬA ĐỔI: Tải lịch sử của tất cả người dùng
             const loadHistory = () => {
                 let history = [];
                  try {
-                    history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
-                } catch (e) {
+                     history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
+                 } catch (e) {
                      console.error("Không thể đọc từ localStorage:", e);
-                }
+                 }
 
                 if (history.length === 0) {
                     historyContainer.innerHTML = '<p class="text-center text-gray-500">Chưa có lịch sử làm bài.</p>';
