@@ -122,6 +122,33 @@
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // ===================================================================================
+        // SỬA LỖI: HƯỚNG DẪN CẬP NHẬT FIRESTORE SECURITY RULES
+        // ===================================================================================
+        // Lỗi "Missing or insufficient permissions" xảy ra do Security Rules (Quy tắc bảo mật)
+        // trên Firestore của bạn không cho phép đọc hoặc ghi dữ liệu.
+        //
+        // ĐỂ SỬA LỖI, BẠN CẦN LÀM THEO CÁC BƯỚC SAU:
+        // 1. Mở dự án của bạn trên trang Firebase Console.
+        // 2. Vào mục "Build" -> "Firestore Database".
+        // 3. Chọn tab "Rules" ở phía trên.
+        // 4. Xóa nội dung hiện có và dán đoạn mã sau vào:
+        //
+        // rules_version = '2';
+        // service cloud.firestore {
+        //   match /databases/{database}/documents {
+        //     match /{document=**} {
+        //       allow read, write: if request.auth != null;
+        //     }
+        //   }
+        // }
+        //
+        // 5. Nhấn nút "Publish".
+        //
+        // Quy tắc này có nghĩa là: "Cho phép bất kỳ ai đã đăng nhập (kể cả ẩn danh)
+        // được quyền đọc và ghi dữ liệu."
+        // ===================================================================================
+
         const firebaseWarning = document.getElementById('firebase-warning');
         let firebaseConfig;
         let db;
@@ -484,7 +511,7 @@
                         if (userAnswer === null) resultHtml = `<p class="text-sm font-medium text-yellow-600"><strong>➖ Bạn chưa trả lời</strong></p>`;
                         else if (isCorrect) resultHtml = `<p class="text-sm font-medium text-green-600"><strong>✔️ Bạn đã chọn đúng:</strong> ${userAnswer}</p>`;
                         else resultHtml = `<p class="text-sm font-medium text-red-600"><strong>❌ Bạn đã chọn sai:</strong> ${userAnswer}</p>`;
-                        return `<div class="bg-gray-50 p-5 rounded-lg border border-gray-200"><p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>${resultHtml}<p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p></div>`;
+                        return `<div class="bg-gray-50 p-5 rounded-lg border border-gray-200"><p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>${html}<p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p></div>`;
                     }).join('');
                 };
 
