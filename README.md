@@ -120,44 +120,52 @@
         // Import các hàm cần thiết từ Firebase SDK
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        // --- !!! QUAN TRỌNG: CẤU HÌNH FIREBASE CỦA BẠN ---
-        // Sao chép và dán cấu hình dự án Firebase của bạn vào đây.
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseWarning = document.getElementById('firebase-warning');
+        let firebaseConfig;
+        let db;
 
-        // Kiểm tra xem config đã được thay đổi chưa
-        if (firebaseConfig.apiKey === "YOUR_API_KEY") {
-            console.error("LỖI: Vui lòng cập nhật firebaseConfig bằng thông tin thật từ dự án Firebase của bạn.");
+        // SỬA ĐỔI: Tự động sử dụng cấu hình Firebase do môi trường cung cấp
+        try {
+            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                firebaseConfig = JSON.parse(__firebase_config);
+                console.log("Đã tải cấu hình Firebase từ môi trường.");
+            } else {
+                 firebaseWarning.textContent = "Lỗi: Không tìm thấy cấu hình Firebase. Ứng dụng sẽ không hoạt động đúng.";
+                 firebaseWarning.classList.remove('hide');
+                 throw new Error("Biến __firebase_config không được định nghĩa.");
+            }
+        } catch (e) {
+            console.error("Lỗi phân tích cú pháp __firebase_config:", e);
+            firebaseWarning.textContent = "Lỗi: Cấu hình Firebase do môi trường cung cấp không hợp lệ.";
             firebaseWarning.classList.remove('hide');
         }
 
         // Khởi tạo Firebase
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        db = getFirestore(app);
         const auth = getAuth(app);
 
-        // Đăng nhập ẩn danh để có quyền truy cập Firestore
-        signInAnonymously(auth)
-            .then(() => {
-                console.log("Đã đăng nhập ẩn danh thành công.");
-                // Sau khi đăng nhập, mới bắt đầu tải lịch sử
-                loadHistory();
-            })
-            .catch((error) => {
-                console.error("Lỗi đăng nhập ẩn danh:", error);
+        // SỬA ĐỔI: Sử dụng custom token hoặc đăng nhập ẩn danh
+        (async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                    console.log("Đã đăng nhập bằng custom token thành công.");
+                } else {
+                    await signInAnonymously(auth);
+                    console.log("Đã đăng nhập ẩn danh thành công (chế độ dự phòng).");
+                }
+                loadHistory(); // Tải lịch sử sau khi đăng nhập thành công
+            } catch (error) {
+                console.error("Lỗi đăng nhập:", error);
                 const historyContainer = document.getElementById('history-container');
-                historyContainer.innerHTML = '<p class="text-center text-red-500">Không thể xác thực. Vui lòng kiểm tra lại cấu hình Firebase.</p>';
-            });
+                historyContainer.innerHTML = `<p class="text-center text-red-500">Lỗi xác thực: ${error.message}</p>`;
+                firebaseWarning.textContent = `Lỗi xác thực: ${error.message}`;
+                firebaseWarning.classList.remove('hide');
+            }
+        })();
         // ===== KẾT THÚC PHẦN TÍCH HỢP FIREBASE =====
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -453,6 +461,11 @@
                 };
 
                 const saveResult = async (result) => {
+                    if (!db) {
+                        console.error("Firestore is not initialized.");
+                        alert("Không thể lưu kết quả. Lỗi kết nối cơ sở dữ liệu.");
+                        return;
+                    }
                     try {
                         const resultWithTimestamp = { ...result, timestamp: serverTimestamp() };
                         const docRef = await addDoc(collection(db, "results"), resultWithTimestamp);
@@ -513,13 +526,16 @@
                 retakeBtn.addEventListener('click', resetQuiz);
 
                 allVocab = parseCSV(vocabularyCSV);
-                // loadHistory() is now called after anonymous sign-in
                 showTab('name');
         });
 
-        // Tải lịch sử TỪ FIRESTORE (được gọi sau khi đăng nhập ẩn danh thành công)
         function loadHistory() {
             const historyContainer = document.getElementById('history-container');
+            if (!db) {
+                console.error("Firestore is not initialized.");
+                historyContainer.innerHTML = '<p class="text-center text-red-500">Lỗi kết nối cơ sở dữ liệu.</p>';
+                return;
+            }
             const q = query(collection(db, "results"), orderBy("timestamp", "desc"));
 
             onSnapshot(q, (querySnapshot) => {
