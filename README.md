@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDuyenIELTS - Kiểm tra 200 từ vựng</title>
+    <title>ToDuyenIELTS - Kiểm tra 200 từ vựng (Phiên bản Online)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -21,6 +21,20 @@
         button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+        /* Thêm hiệu ứng loading spinner */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -42,6 +56,12 @@
             </nav>
 
             <main class="p-6 sm:p-8">
+                 <!-- Cảnh báo cấu hình Firebase -->
+                <div id="firebase-warning" class="hide mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    <strong>Lỗi Cấu hình!</strong> Vui lòng cập nhật `firebaseConfig` trong file HTML bằng thông tin thật từ dự án Firebase của bạn.
+                </div>
+
+                <!-- Cửa sổ 1: Nhập tên -->
                 <div id="name" class="tab-content">
                     <h2 class="text-2xl font-semibold mb-4 text-center text-blue-800">Chào mừng bạn!</h2>
                     <p class="text-center text-gray-700 mb-6">Vui lòng nhập tên của bạn để bắt đầu bài kiểm tra.</p>
@@ -51,42 +71,95 @@
                     </div>
                 </div>
 
+                <!-- Cửa sổ 2: Bài làm -->
                 <div id="quiz" class="tab-content hide">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-semibold text-blue-800">Câu hỏi</h2>
                         <div id="timer" class="text-xl font-bold bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">20:00</div>
                     </div>
                     <div id="quiz-container" class="space-y-6">
-                        </div>
+                        <!-- Các câu hỏi sẽ được chèn vào đây bởi JavaScript -->
+                    </div>
                     <button id="submitBtn" class="w-full mt-8 bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Nộp bài</button>
                 </div>
 
+                <!-- Cửa sổ 3: Kết quả -->
                 <div id="result" class="tab-content hide text-center">
                     <h2 class="text-2xl font-semibold mb-4 text-blue-800">Hoàn thành!</h2>
                     <div id="result-content" class="bg-gray-50 p-8 rounded-lg space-y-3 max-w-md mx-auto">
-                        </div>
+                        <!-- Nội dung kết quả sẽ được chèn vào đây -->
+                    </div>
                     <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4">
                         <button id="retakeBtn" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105">Làm lại</button>
                         <button id="reviewAnswersBtn" class="w-full sm:w-auto bg-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-600 transition-transform transform hover:scale-105">Xem đáp án</button>
                     </div>
                 </div>
 
+                <!-- Cửa sổ 4: Đáp án -->
                 <div id="answers" class="tab-content hide">
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Đáp án chi tiết</h2>
                     <div id="answers-container" class="space-y-4">
-                        </div>
+                        <!-- Nội dung đáp án sẽ được chèn vào đây -->
+                    </div>
                 </div>
 
+                <!-- Cửa sổ 5: Lịch sử -->
                 <div id="history" class="tab-content hide">
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Lịch sử làm bài</h2>
                     <div id="history-container" class="overflow-x-auto">
-                        </div>
+                        <div class="loader"></div>
+                        <p class="text-center text-gray-500">Đang tải lịch sử...</p>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
 
-    <script>
+    <!-- ===== BẮT ĐẦU PHẦN TÍCH HỢP FIREBASE (SDK v9+ modular) ===== -->
+    <script type="module">
+        // Import các hàm cần thiết từ Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // --- !!! QUAN TRỌNG: CẤU HÌNH FIREBASE CỦA BẠN ---
+        // Sao chép và dán cấu hình dự án Firebase của bạn vào đây.
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const firebaseWarning = document.getElementById('firebase-warning');
+
+        // Kiểm tra xem config đã được thay đổi chưa
+        if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+            console.error("LỖI: Vui lòng cập nhật firebaseConfig bằng thông tin thật từ dự án Firebase của bạn.");
+            firebaseWarning.classList.remove('hide');
+        }
+
+        // Khởi tạo Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Đăng nhập ẩn danh để có quyền truy cập Firestore
+        signInAnonymously(auth)
+            .then(() => {
+                console.log("Đã đăng nhập ẩn danh thành công.");
+                // Sau khi đăng nhập, mới bắt đầu tải lịch sử
+                loadHistory();
+            })
+            .catch((error) => {
+                console.error("Lỗi đăng nhập ẩn danh:", error);
+                const historyContainer = document.getElementById('history-container');
+                historyContainer.innerHTML = '<p class="text-center text-red-500">Không thể xác thực. Vui lòng kiểm tra lại cấu hình Firebase.</p>';
+            });
+        // ===== KẾT THÚC PHẦN TÍCH HỢP FIREBASE =====
+
         document.addEventListener('DOMContentLoaded', () => {
             const vocabularyCSV = `1,Tune,(v),/tjuːn/,"Theo dõi, điều chỉnh"
 2,A 20-year wait,(phrase),-,Sự chờ đợi 20 năm
@@ -289,168 +362,171 @@
 199,Constantly,(adv),/ˈkɒnstəntli/,Liên tục
 200,Expert,(n),/ˈekspɜːt/,Chuyên gia`;
 
-            // State variables
-            let allVocab = [];
-            let quizData = [];
-            let timerInterval;
-            let currentUsername = '';
-            let userAnswers = {};
+                let allVocab = [];
+                let quizData = [];
+                let timerInterval;
+                let currentUsername = '';
+                let userAnswers = {};
 
-            // DOM Elements
-            const tabs = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            const startBtn = document.getElementById('startBtn');
-            const submitBtn = document.getElementById('submitBtn');
-            const usernameInput = document.getElementById('username');
-            const quizContainer = document.getElementById('quiz-container');
-            const answersContainer = document.getElementById('answers-container');
-            const historyContainer = document.getElementById('history-container');
-            const resultContent = document.getElementById('result-content');
-            const reviewAnswersBtn = document.getElementById('reviewAnswersBtn');
-            const retakeBtn = document.getElementById('retakeBtn');
-            const timerElement = document.getElementById('timer');
+                const tabs = document.querySelectorAll('.tab-button');
+                const tabContents = document.querySelectorAll('.tab-content');
+                const startBtn = document.getElementById('startBtn');
+                const submitBtn = document.getElementById('submitBtn');
+                const usernameInput = document.getElementById('username');
+                const quizContainer = document.getElementById('quiz-container');
+                const answersContainer = document.getElementById('answers-container');
+                const historyContainer = document.getElementById('history-container');
+                const resultContent = document.getElementById('result-content');
+                const reviewAnswersBtn = document.getElementById('reviewAnswersBtn');
+                const retakeBtn = document.getElementById('retakeBtn');
+                const timerElement = document.getElementById('timer');
 
-            // --- FUNCTIONS ---
-
-            const parseCSV = (csv) => {
-                return csv.split('\n')
-                    .map(line => line.split(','))
-                    .filter(parts => parts.length >= 5)
-                    .map(parts => ({
-                        word: parts[1].trim(),
-                        definition: parts.slice(4).join(',').trim().replace(/^"|"$/g, '')
-                    }))
-                    .filter(vocab => vocab.word && vocab.definition);
-            };
-            
-            const generateRandomQuiz = (count) => {
-                const shuffledVocab = [...allVocab].sort(() => 0.5 - Math.random());
-                const selectedWords = shuffledVocab.slice(0, count);
-                
-                quizData = selectedWords.map(correctWord => {
-                    const answer = correctWord.definition;
-                    const wrongOptions = new Set();
-                    
-                    while (wrongOptions.size < 3) {
-                        const randomWord = allVocab[Math.floor(Math.random() * allVocab.length)];
-                        if (randomWord.definition !== answer) {
-                            wrongOptions.add(randomWord.definition);
+                const parseCSV = (csv) => csv.split('\n').map(l => l.split(',')).filter(p => p.length >= 5).map(p => ({ word: p[1].trim(), definition: p.slice(4).join(',').trim().replace(/^"|"$/g, '') })).filter(v => v.word && v.definition);
+                const generateRandomQuiz = (count) => {
+                    const shuffled = [...allVocab].sort(() => 0.5 - Math.random());
+                    quizData = shuffled.slice(0, count).map(correctWord => {
+                        const wrongOptions = new Set();
+                        while (wrongOptions.size < 3) {
+                            const randomWord = allVocab[Math.floor(Math.random() * allVocab.length)];
+                            if (randomWord.definition !== correctWord.definition) wrongOptions.add(randomWord.definition);
                         }
-                    }
-
-                    const options = [answer, ...wrongOptions].sort(() => 0.5 - Math.random());
-                    
-                    return {
-                        word: correctWord.word,
-                        question: `Đâu là nghĩa của từ: <strong>"${correctWord.word}"</strong>?`,
-                        options,
-                        answer
+                        return { word: correctWord.word, question: `Đâu là nghĩa của từ: <strong>"${correctWord.word}"</strong>?`, options: [correctWord.definition, ...wrongOptions].sort(() => 0.5 - Math.random()), answer: correctWord.definition };
+                    });
+                };
+                const showTab = (tabId) => {
+                    tabContents.forEach(c => c.classList.add('hide'));
+                    document.getElementById(tabId)?.classList.remove('hide');
+                    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabId && !t.disabled));
+                };
+                const loadQuiz = () => {
+                    quizContainer.innerHTML = quizData.map((q, index) => `
+                        <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                            <p class="font-semibold text-lg mb-4">${index + 1}. ${q.question}</p>
+                            <div class="space-y-2">
+                                ${q.options.map(option => `<label class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-blue-100 cursor-pointer transition has-[:checked]:bg-blue-100 has-[:checked]:border-blue-400"><input type="radio" name="question${index}" value="${option}" class="mr-3 focus:ring-blue-500"><span>${option}</span></label>`).join('')}
+                            </div>
+                        </div>`).join('');
+                };
+                const startTimer = () => {
+                    let timeLeft = 20 * 60;
+                    const updateTimer = () => {
+                        timeLeft--;
+                        const minutes = Math.floor(timeLeft / 60);
+                        const seconds = timeLeft % 60;
+                        timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                        if (timeLeft <= 0) {
+                            clearInterval(timerInterval);
+                            submitQuiz();
+                        }
                     };
-                });
-            };
+                    updateTimer();
+                    timerInterval = setInterval(updateTimer, 1000);
+                };
 
-            const showTab = (tabId) => {
-                tabContents.forEach(content => content.classList.add('hide'));
-                document.getElementById(tabId)?.classList.remove('hide');
+                const submitQuiz = () => {
+                    clearInterval(timerInterval);
+                    submitBtn.disabled = true;
+                    let score = 0;
+                    userAnswers = {};
 
-                tabs.forEach(tab => {
-                    tab.classList.toggle('active', tab.dataset.tab === tabId && !tab.disabled);
-                });
-            };
+                    quizData.forEach((q, index) => {
+                        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                        const selectedValue = selectedOption ? selectedOption.value : null;
+                        userAnswers[index] = selectedValue;
+                        if (selectedValue === q.answer) score++;
+                    });
 
-            const loadQuiz = () => {
-                quizContainer.innerHTML = quizData.map((q, index) => `
-                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-                        <p class="font-semibold text-lg mb-4">${index + 1}. ${q.question}</p>
-                        <div class="space-y-2">
-                            ${q.options.map(option => `
-                                <label class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-blue-100 cursor-pointer transition has-[:checked]:bg-blue-100 has-[:checked]:border-blue-400">
-                                    <input type="radio" name="question${index}" value="${option}" class="mr-3 focus:ring-blue-500">
-                                    <span>${option}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
-            };
+                    const result = {
+                        name: currentUsername,
+                        score: score,
+                        total: quizData.length,
+                        date: new Date().toLocaleString('vi-VN')
+                    };
 
-            const startTimer = () => {
-                let timeLeft = 20 * 60; // 20 minutes
+                    resultContent.innerHTML = `<p class="text-lg"><span class="font-semibold">Tên:</span> ${result.name}</p><p class="text-3xl font-bold my-4 ${result.score / result.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">${result.score} / ${result.total}</p><p class="text-gray-500">Ngày làm: ${result.date}</p>`;
+                    
+                    saveResult(result);
+                    document.querySelector('button[data-tab="result"]').disabled = false;
+                    document.querySelector('button[data-tab="answers"]').disabled = false;
+                    loadAnswers();
+                    showTab('result');
+                };
+
+                const saveResult = async (result) => {
+                    try {
+                        const resultWithTimestamp = { ...result, timestamp: serverTimestamp() };
+                        const docRef = await addDoc(collection(db, "results"), resultWithTimestamp);
+                        console.log("Kết quả đã được lưu với ID: ", docRef.id);
+                    } catch (error) {
+                        console.error("Lỗi khi lưu kết quả: ", error);
+                        alert("Đã có lỗi xảy ra khi lưu kết quả của bạn. Vui lòng thử lại.");
+                    }
+                };
                 
-                const updateTimer = () => {
-                    timeLeft--;
-                    const minutes = Math.floor(timeLeft / 60);
-                    const seconds = timeLeft % 60;
-                    timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                const loadAnswers = () => {
+                    answersContainer.innerHTML = quizData.map((q, index) => {
+                        const userAnswer = userAnswers[index];
+                        const isCorrect = userAnswer === q.answer;
+                        let resultHtml;
+                        if (userAnswer === null) resultHtml = `<p class="text-sm font-medium text-yellow-600"><strong>➖ Bạn chưa trả lời</strong></p>`;
+                        else if (isCorrect) resultHtml = `<p class="text-sm font-medium text-green-600"><strong>✔️ Bạn đã chọn đúng:</strong> ${userAnswer}</p>`;
+                        else resultHtml = `<p class="text-sm font-medium text-red-600"><strong>❌ Bạn đã chọn sai:</strong> ${userAnswer}</p>`;
+                        return `<div class="bg-gray-50 p-5 rounded-lg border border-gray-200"><p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>${resultHtml}<p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p></div>`;
+                    }).join('');
+                };
 
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
+                const resetQuiz = () => {
+                    clearInterval(timerInterval);
+                    userAnswers = {};
+                    currentUsername = '';
+                    quizData = [];
+                    timerElement.textContent = "20:00";
+                    usernameInput.value = '';
+                    startBtn.disabled = false;
+                    submitBtn.disabled = false;
+                    ['quiz', 'result', 'answers'].forEach(tabName => {
+                        document.querySelector(`button[data-tab="${tabName}"]`).disabled = true;
+                    });
+                    showTab('name');
+                };
+
+                tabs.forEach(tab => tab.addEventListener('click', () => !tab.disabled && showTab(tab.dataset.tab)));
+                startBtn.addEventListener('click', () => {
+                    currentUsername = usernameInput.value.trim();
+                    if (currentUsername) {
+                        startBtn.disabled = true;
+                        document.querySelector('button[data-tab="quiz"]').disabled = false;
+                        generateRandomQuiz(200);
+                        loadQuiz();
+                        showTab('quiz');
+                        startTimer();
+                    } else {
+                        alert('Vui lòng nhập tên của bạn!');
+                    }
+                });
+                submitBtn.addEventListener('click', () => {
+                    if (confirm('Bạn có chắc chắn muốn nộp bài không?')) {
                         submitQuiz();
                     }
-                };
-
-                updateTimer(); // run once immediately
-                timerInterval = setInterval(updateTimer, 1000);
-            };
-
-            const submitQuiz = () => {
-                clearInterval(timerInterval);
-                submitBtn.disabled = true;
-                let score = 0;
-                userAnswers = {};
-
-                quizData.forEach((q, index) => {
-                    const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-                    const selectedValue = selectedOption ? selectedOption.value : null;
-                    userAnswers[index] = selectedValue;
-                    if (selectedValue === q.answer) {
-                        score++;
-                    }
                 });
+                reviewAnswersBtn.addEventListener('click', () => showTab('answers'));
+                retakeBtn.addEventListener('click', resetQuiz);
 
-                const result = {
-                    name: currentUsername,
-                    score,
-                    total: quizData.length,
-                    date: new Date().toLocaleString('vi-VN')
-                };
+                allVocab = parseCSV(vocabularyCSV);
+                // loadHistory() is now called after anonymous sign-in
+                showTab('name');
+        });
 
-                resultContent.innerHTML = `
-                    <p class="text-lg"><span class="font-semibold">Tên:</span> ${result.name}</p>
-                    <p class="text-3xl font-bold my-4 ${result.score / result.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">
-                        ${result.score} / ${result.total}
-                    </p>
-                    <p class="text-gray-500">Ngày làm: ${result.date}</p>
-                `;
-                
-                saveResult(result);
-                document.querySelector('button[data-tab="result"]').disabled = false;
-                document.querySelector('button[data-tab="answers"]').disabled = false;
-                loadAnswers();
-                loadHistory();
-                showTab('result');
-            };
+        // Tải lịch sử TỪ FIRESTORE (được gọi sau khi đăng nhập ẩn danh thành công)
+        function loadHistory() {
+            const historyContainer = document.getElementById('history-container');
+            const q = query(collection(db, "results"), orderBy("timestamp", "desc"));
 
-            // SỬA ĐỔI: Lưu kết quả của tất cả người dùng
-            const saveResult = (result) => {
-                try {
-                    // Lấy lịch sử hiện có, thêm kết quả mới và lưu lại
-                    let history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
-                    history.unshift(result); // Thêm vào đầu mảng
-                    localStorage.setItem('vocabTestHistory', JSON.stringify(history));
-                } catch (e) {
-                    console.error("Không thể lưu vào localStorage:", e);
-                }
-            };
-            
-            // SỬA ĐỔI: Tải lịch sử của tất cả người dùng
-            const loadHistory = () => {
-                let history = [];
-                 try {
-                     history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
-                 } catch (e) {
-                     console.error("Không thể đọc từ localStorage:", e);
-                 }
+            onSnapshot(q, (querySnapshot) => {
+                const history = [];
+                querySnapshot.forEach((doc) => {
+                    history.push(doc.data());
+                });
 
                 if (history.length === 0) {
                     historyContainer.innerHTML = '<p class="text-center text-gray-500">Chưa có lịch sử làm bài.</p>';
@@ -476,85 +552,12 @@
                             `).join('')}
                         </tbody>
                     </table>`;
-            };
-
-            const loadAnswers = () => {
-                answersContainer.innerHTML = quizData.map((q, index) => {
-                    const userAnswer = userAnswers[index];
-                    const isCorrect = userAnswer === q.answer;
-                    
-                    let resultHtml;
-                    if (userAnswer === null) {
-                        resultHtml = `<p class="text-sm font-medium text-yellow-600"><strong>➖ Bạn chưa trả lời</strong></p>`;
-                    } else if (isCorrect) {
-                        resultHtml = `<p class="text-sm font-medium text-green-600"><strong>✔️ Bạn đã chọn đúng:</strong> ${userAnswer}</p>`;
-                    } else {
-                        resultHtml = `<p class="text-sm font-medium text-red-600"><strong>❌ Bạn đã chọn sai:</strong> ${userAnswer}</p>`;
-                    }
-
-                    return `
-                        <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-                            <p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>
-                            ${resultHtml}
-                            <p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p>
-                        </div>`;
-                }).join('');
-            };
-
-            const resetQuiz = () => {
-                clearInterval(timerInterval);
-                userAnswers = {};
-                currentUsername = '';
-                quizData = [];
-                
-                timerElement.textContent = "20:00";
-                usernameInput.value = '';
-                startBtn.disabled = false;
-                submitBtn.disabled = false;
-                
-                ['quiz', 'result', 'answers'].forEach(tabName => {
-                    document.querySelector(`button[data-tab="${tabName}"]`).disabled = true;
-                });
-                
-                showTab('name');
-            };
-
-            // --- EVENT LISTENERS ---
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => !tab.disabled && showTab(tab.dataset.tab));
+            }, (error) => {
+                console.error("Lỗi khi tải lịch sử: ", error);
+                historyContainer.innerHTML = '<p class="text-center text-red-500">Không thể tải lịch sử. Vui lòng kiểm tra lại cấu hình Firebase và Rules.</p>';
             });
-
-            startBtn.addEventListener('click', () => {
-                currentUsername = usernameInput.value.trim();
-                if (currentUsername) {
-                    startBtn.disabled = true;
-                    document.querySelector('button[data-tab="quiz"]').disabled = false;
-                    
-                    generateRandomQuiz(200);
-                    loadQuiz();
-                    
-                    showTab('quiz');
-                    startTimer();
-                } else {
-                    alert('Vui lòng nhập tên của bạn!');
-                }
-            });
-
-            submitBtn.addEventListener('click', () => {
-                if (confirm('Bạn có chắc chắn muốn nộp bài không?')) {
-                    submitQuiz();
-                }
-            });
-            
-            reviewAnswersBtn.addEventListener('click', () => showTab('answers'));
-            retakeBtn.addEventListener('click', resetQuiz);
-
-            // --- INITIALIZATION ---
-            allVocab = parseCSV(vocabularyCSV);
-            loadHistory();
-            showTab('name');
-        });
+        };
     </script>
 </body>
 </html>
+
