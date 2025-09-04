@@ -48,7 +48,7 @@
             </div>
 
             <nav class="flex flex-wrap justify-center border-b border-gray-200 bg-gray-50">
-                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="name">1. Tên</button>
+                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="name">1. Bắt đầu</button>
                 <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="quiz" disabled>2. Bài làm</button>
                 <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="result" disabled>3. Kết quả</button>
                 <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="answers" disabled>4. Đáp án</button>
@@ -61,12 +61,11 @@
                     <strong>Lỗi Cấu hình!</strong> Vui lòng cập nhật `firebaseConfig` trong file HTML bằng thông tin thật từ dự án Firebase của bạn.
                 </div>
 
-                <!-- Cửa sổ 1: Nhập tên -->
+                <!-- SỬA ĐỔI: Cửa sổ 1, không yêu cầu tên -->
                 <div id="name" class="tab-content">
                     <h2 class="text-2xl font-semibold mb-4 text-center text-blue-800">Chào mừng bạn!</h2>
-                    <p class="text-center text-gray-700 mb-6">Vui lòng nhập tên của bạn để bắt đầu bài kiểm tra.</p>
+                    <p class="text-center text-gray-700 mb-6">Nhấn "Bắt đầu" để làm bài kiểm tra.</p>
                     <div class="max-w-sm mx-auto">
-                        <input type="text" id="username" placeholder="Nhập tên của bạn..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
                         <button id="startBtn" class="w-full mt-4 bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Bắt đầu</button>
                     </div>
                 </div>
@@ -153,7 +152,7 @@
         let firebaseConfig;
         let db;
 
-        // SỬA ĐỔI: Tự động sử dụng cấu hình Firebase do môi trường cung cấp
+        // Tự động sử dụng cấu hình Firebase do môi trường cung cấp
         try {
             if (typeof __firebase_config !== 'undefined' && __firebase_config) {
                 firebaseConfig = JSON.parse(__firebase_config);
@@ -174,7 +173,7 @@
         db = getFirestore(app);
         const auth = getAuth(app);
 
-        // SỬA ĐỔI: Sử dụng custom token hoặc đăng nhập ẩn danh
+        // Sử dụng custom token hoặc đăng nhập ẩn danh
         (async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -400,14 +399,12 @@
                 let allVocab = [];
                 let quizData = [];
                 let timerInterval;
-                let currentUsername = '';
                 let userAnswers = {};
 
                 const tabs = document.querySelectorAll('.tab-button');
                 const tabContents = document.querySelectorAll('.tab-content');
                 const startBtn = document.getElementById('startBtn');
                 const submitBtn = document.getElementById('submitBtn');
-                const usernameInput = document.getElementById('username');
                 const quizContainer = document.getElementById('quiz-container');
                 const answersContainer = document.getElementById('answers-container');
                 const historyContainer = document.getElementById('history-container');
@@ -471,14 +468,15 @@
                         if (selectedValue === q.answer) score++;
                     });
 
+                    // SỬA ĐỔI: Tạo đối tượng kết quả không có tên
                     const result = {
-                        name: currentUsername,
                         score: score,
                         total: quizData.length,
                         date: new Date().toLocaleString('vi-VN')
                     };
 
-                    resultContent.innerHTML = `<p class="text-lg"><span class="font-semibold">Tên:</span> ${result.name}</p><p class="text-3xl font-bold my-4 ${result.score / result.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">${result.score} / ${result.total}</p><p class="text-gray-500">Ngày làm: ${result.date}</p>`;
+                    // SỬA ĐỔI: Hiển thị kết quả không có tên
+                    resultContent.innerHTML = `<p class="text-3xl font-bold my-4 ${result.score / result.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">${result.score} / ${result.total}</p><p class="text-gray-500">Ngày làm: ${result.date}</p>`;
                     
                     saveResult(result);
                     document.querySelector('button[data-tab="result"]').disabled = false;
@@ -511,17 +509,15 @@
                         if (userAnswer === null) resultHtml = `<p class="text-sm font-medium text-yellow-600"><strong>➖ Bạn chưa trả lời</strong></p>`;
                         else if (isCorrect) resultHtml = `<p class="text-sm font-medium text-green-600"><strong>✔️ Bạn đã chọn đúng:</strong> ${userAnswer}</p>`;
                         else resultHtml = `<p class="text-sm font-medium text-red-600"><strong>❌ Bạn đã chọn sai:</strong> ${userAnswer}</p>`;
-                        return `<div class="bg-gray-50 p-5 rounded-lg border border-gray-200"><p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>${html}<p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p></div>`;
+                        return `<div class="bg-gray-50 p-5 rounded-lg border border-gray-200"><p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>${resultHtml}<p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p></div>`;
                     }).join('');
                 };
 
                 const resetQuiz = () => {
                     clearInterval(timerInterval);
                     userAnswers = {};
-                    currentUsername = '';
                     quizData = [];
                     timerElement.textContent = "20:00";
-                    usernameInput.value = '';
                     startBtn.disabled = false;
                     submitBtn.disabled = false;
                     ['quiz', 'result', 'answers'].forEach(tabName => {
@@ -531,19 +527,17 @@
                 };
 
                 tabs.forEach(tab => tab.addEventListener('click', () => !tab.disabled && showTab(tab.dataset.tab)));
+                
+                // SỬA ĐỔI: Nút bắt đầu không cần tên
                 startBtn.addEventListener('click', () => {
-                    currentUsername = usernameInput.value.trim();
-                    if (currentUsername) {
-                        startBtn.disabled = true;
-                        document.querySelector('button[data-tab="quiz"]').disabled = false;
-                        generateRandomQuiz(200);
-                        loadQuiz();
-                        showTab('quiz');
-                        startTimer();
-                    } else {
-                        alert('Vui lòng nhập tên của bạn!');
-                    }
+                    startBtn.disabled = true;
+                    document.querySelector('button[data-tab="quiz"]').disabled = false;
+                    generateRandomQuiz(200);
+                    loadQuiz();
+                    showTab('quiz');
+                    startTimer();
                 });
+
                 submitBtn.addEventListener('click', () => {
                     if (confirm('Bạn có chắc chắn muốn nộp bài không?')) {
                         submitQuiz();
@@ -575,12 +569,12 @@
                     historyContainer.innerHTML = '<p class="text-center text-gray-500">Chưa có lịch sử làm bài.</p>';
                     return;
                 }
-
+                
+                // SỬA ĐỔI: Hiển thị bảng lịch sử không có cột tên
                 historyContainer.innerHTML = `
                     <table class="min-w-full bg-white border border-gray-200 rounded-lg">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tên</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Điểm số</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày</th>
                             </tr>
@@ -588,7 +582,6 @@
                         <tbody class="divide-y divide-gray-200">
                             ${history.map(item => `
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">${item.name}</td>
                                     <td class="px-6 py-4 whitespace-nowrap font-semibold">${item.score} / ${item.total}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">${item.date}</td>
                                 </tr>
