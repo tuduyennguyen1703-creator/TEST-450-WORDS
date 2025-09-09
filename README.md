@@ -1,4 +1,4 @@
-<Xin Chào>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -68,6 +68,7 @@
                     <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4">
                         <button id="retakeBtn" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105">Làm lại</button>
                         <button id="reviewAnswersBtn" class="w-full sm:w-auto bg-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-600 transition-transform transform hover:scale-105">Xem đáp án</button>
+                        <button id="exportBtn" class="w-full sm:w-auto bg-gray-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition-transform transform hover:scale-105">Lưu & Xuất kết quả</button>
                     </div>
                 </div>
 
@@ -545,6 +546,7 @@
             let timerInterval;
             let currentUsername = '';
             let userAnswers = {};
+            let latestResult = null; // Biến để lưu kết quả mới nhất
 
             // DOM Elements
             const tabs = document.querySelectorAll('.tab-button');
@@ -558,6 +560,7 @@
             const resultContent = document.getElementById('result-content');
             const reviewAnswersBtn = document.getElementById('reviewAnswersBtn');
             const retakeBtn = document.getElementById('retakeBtn');
+            const exportBtn = document.getElementById('exportBtn'); // Nút xuất kết quả
             const timerElement = document.getElementById('timer');
 
             // --- FUNCTIONS ---
@@ -658,7 +661,7 @@
                     }
                 });
 
-                const result = {
+                latestResult = { // Cập nhật kết quả mới nhất
                     name: currentUsername,
                     score,
                     total: quizData.length,
@@ -666,18 +669,18 @@
                 };
 
                 resultContent.innerHTML = `
-                    <p class="text-lg"><span class="font-semibold">Tên:</span> ${result.name}</p>
-                    <p class="text-3xl font-bold my-4 ${result.score / result.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">
-                        ${result.score} / ${result.total}
+                    <p class="text-lg"><span class="font-semibold">Tên:</span> ${latestResult.name}</p>
+                    <p class="text-3xl font-bold my-4 ${latestResult.score / latestResult.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">
+                        ${latestResult.score} / ${latestResult.total}
                     </p>
-                    <p class="text-gray-500">Ngày làm: ${result.date}</p>
+                    <p class="text-gray-500">Ngày làm: ${latestResult.date}</p>
                 `;
                 
-                saveResult(result);
+                saveResult(latestResult);
                 document.querySelector('button[data-tab="result"]').disabled = false;
                 document.querySelector('button[data-tab="answers"]').disabled = false;
                 loadAnswers();
-                loadHistory(); // Tải lại lịch sử sau khi lưu
+                loadHistory(); 
                 showTab('result');
             };
             
@@ -748,11 +751,52 @@
                 }).join('');
             };
 
+            // HÀM MỚI ĐỂ XUẤT KẾT QUẢ
+            const exportResults = () => {
+                if (!latestResult) {
+                    alert('Không có kết quả để xuất!');
+                    return;
+                }
+
+                // 1. Tạo nội dung file text
+                let content = `KẾT QUẢ BÀI KIỂM TRA TỪ VỰNG - TODUYENIELTS\n`;
+                content += `=========================================\n\n`;
+                content += `Họ và tên: ${latestResult.name}\n`;
+                content += `Ngày làm bài: ${latestResult.date}\n`;
+                content += `Điểm số: ${latestResult.score} / ${latestResult.total}\n\n`;
+                content += `CHI TIẾT BÀI LÀM\n`;
+                content += `-----------------------------------------\n\n`;
+
+                quizData.forEach((q, index) => {
+                    const userAnswer = userAnswers[index];
+                    const isCorrect = userAnswer === q.answer;
+                    const questionText = q.question.replace(/<strong>|<\/strong>/g, ""); // Xóa tag HTML
+
+                    content += `Câu ${index + 1}: ${questionText}\n`;
+                    content += `  - Bạn đã chọn: ${userAnswer || 'Chưa trả lời'}\n`;
+                    content += `  - Đáp án đúng: ${q.answer}\n`;
+                    content += `  - Kết quả: ${isCorrect ? 'Đúng' : 'Sai'}\n\n`;
+                });
+
+                // 2. Tạo và tải file
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                const safeName = latestResult.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                const dateString = new Date().toISOString().slice(0, 10);
+                link.download = `ket-qua-${safeName}-${dateString}.txt`;
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
             const resetQuiz = () => {
                 clearInterval(timerInterval);
                 userAnswers = {};
                 currentUsername = '';
                 quizData = [];
+                latestResult = null; // Reset kết quả
                 
                 timerElement.textContent = "20:00";
                 usernameInput.value = '';
@@ -778,7 +822,7 @@
                     startBtn.disabled = true;
                     document.querySelector('button[data-tab="quiz"]').disabled = false;
                     
-                    generateRandomQuiz(150); // Lấy 150 từ ngẫu nhiên
+                    generateRandomQuiz(150);
                     loadQuiz();
                     
                     showTab('quiz');
@@ -796,6 +840,7 @@
             
             reviewAnswersBtn.addEventListener('click', () => showTab('answers'));
             retakeBtn.addEventListener('click', resetQuiz);
+            exportBtn.addEventListener('click', exportResults); // Gắn sự kiện cho nút mới
 
             // --- INITIALIZATION ---
             allVocab = parseCSV(vocabularyCSV);
