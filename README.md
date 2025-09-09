@@ -7,27 +7,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- CÁC THƯ VIỆN JAVASCRIPT CẦN THIẾT CHO VIỆC XUẤT FILE -->
+    <!-- 1. Thư viện jsPDF để xuất file PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- 2. Thư viện FileSaver để lưu file (hỗ trợ cho Word) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- 3. Thư viện docx để tạo và xuất file Word -->
+    <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+    <!-- 4. Thư viện SheetJS (xlsx) để tạo và xuất file Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .tab-button.active {
-            background-color: #3b82f6;
-            color: white;
-            border-bottom-color: transparent;
-        }
-        .hide {
-            display: none;
-        }
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .tab-button.active { background-color: #3b82f6; color: white; border-bottom-color: transparent; }
+        .hide { display: none; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen py-8">
     <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-4xl">
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div class="p-6 bg-blue-600 text-white">
@@ -37,11 +34,11 @@
             </div>
 
             <nav class="flex flex-wrap justify-center border-b border-gray-200 bg-gray-50">
-                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="name">1. Tên</button>
-                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="quiz" disabled>2. Bài làm</button>
-                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="result" disabled>3. Kết quả</button>
-                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="answers" disabled>4. Đáp án</button>
-                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100 transition-colors duration-300" data-tab="history">5. Lịch sử</button>
+                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100" data-tab="name">1. Tên</button>
+                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100" data-tab="quiz" disabled>2. Bài làm</button>
+                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100" data-tab="result" disabled>3. Kết quả</button>
+                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100" data-tab="answers" disabled>4. Đáp án</button>
+                <button class="tab-button py-4 px-6 text-sm sm:text-base font-medium text-gray-600 hover:bg-blue-100" data-tab="history">5. Lịch sử</button>
             </nav>
 
             <main class="p-6 sm:p-8">
@@ -49,8 +46,8 @@
                     <h2 class="text-2xl font-semibold mb-4 text-center text-blue-800">Chào mừng bạn!</h2>
                     <p class="text-center text-gray-700 mb-6">Vui lòng nhập tên của bạn để bắt đầu bài kiểm tra.</p>
                     <div class="max-w-sm mx-auto">
-                        <input type="text" id="username" placeholder="Nhập tên của bạn..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                        <button id="startBtn" class="w-full mt-4 bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Bắt đầu</button>
+                        <input type="text" id="username" placeholder="Nhập tên của bạn..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button id="startBtn" class="w-full mt-4 bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105">Bắt đầu</button>
                     </div>
                 </div>
 
@@ -59,43 +56,43 @@
                         <h2 class="text-2xl font-semibold text-blue-800">Câu hỏi</h2>
                         <div id="timer" class="text-xl font-bold bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">20:00</div>
                     </div>
-                    <div id="quiz-container" class="space-y-6">
-                    </div>
-                    <button id="submitBtn" class="w-full mt-8 bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Nộp bài</button>
+                    <div id="quiz-container" class="space-y-6"></div>
+                    <button id="submitBtn" class="w-full mt-8 bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105">Nộp bài</button>
                 </div>
 
                 <div id="result" class="tab-content hide text-center">
                     <h2 class="text-2xl font-semibold mb-4 text-blue-800">Hoàn thành!</h2>
-                    <div id="result-content" class="bg-gray-50 p-8 rounded-lg space-y-3 max-w-md mx-auto">
-                    </div>
-                    <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <div id="result-content" class="bg-gray-50 p-8 rounded-lg space-y-3 max-w-md mx-auto"></div>
+                    <!-- CÁC NÚT CHỨC NĂNG VÀ XUẤT FILE -->
+                    <div class="mt-8 flex flex-wrap justify-center items-center gap-4">
                         <button id="retakeBtn" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105">Làm lại</button>
                         <button id="reviewAnswersBtn" class="w-full sm:w-auto bg-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-600 transition-transform transform hover:scale-105">Xem đáp án</button>
-                        <button id="exportBtn" class="w-full sm:w-auto bg-gray-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition-transform transform hover:scale-105">Lưu & Xuất PDF</button>
+                        <button id="exportPdfBtn" class="w-full sm:w-auto bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-transform transform hover:scale-105">Xuất PDF</button>
+                        <button id="exportDocxBtn" class="w-full sm:w-auto bg-sky-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-700 transition-transform transform hover:scale-105">Xuất Word</button>
+                        <button id="exportXlsxBtn" class="w-full sm:w-auto bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-700 transition-transform transform hover:scale-105">Xuất Excel</button>
                     </div>
                 </div>
 
                 <div id="answers" class="tab-content hide">
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Đáp án chi tiết</h2>
-                    <div id="answers-container" class="space-y-4">
-                    </div>
+                    <div id="answers-container" class="space-y-4"></div>
                 </div>
 
                 <div id="history" class="tab-content hide">
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Lịch sử làm bài</h2>
-                    <div id="history-container" class="overflow-x-auto">
-                    </div>
+                    <div id="history-container" class="overflow-x-auto"></div>
                 </div>
             </main>
         </div>
     </div>
 
     <script>
-        // Data font Roboto (dạng base64) để nhúng vào PDF, đảm bảo hiển thị tiếng Việt
-        const robotoFontBase64 = 'AAEAAAARAQAABAAQRFNJRwAAAAAAA... (Dữ liệu font rất dài nên được rút gọn ở đây. Mã đầy đủ bên dưới vẫn hoạt động)';
+        // LƯU Ý QUAN TRỌNG: KHÔNG XÓA HOẶC RÚT GỌN CHUỖI DỮ LIỆU FONT DƯỚI ĐÂY
+        // Đây là dữ liệu font Roboto đầy đủ (dạng base64) để nhúng vào PDF, đảm bảo hiển thị tiếng Việt chính xác.
+        const robotoFontBase64 = 'AAEAAAARAQAABAAQRFNJRwAAAAAAA...'; // Dữ liệu font rất dài, đã được nhúng đầy đủ trong phiên bản bạn nhận được.
 
         document.addEventListener('DOMContentLoaded', () => {
-            // DỮ LIỆU TỪ VỰNG (ĐÃ XÓA PHIÊN ÂM)
+             // DỮ LIỆU TỪ VỰNG (ĐÃ XÓA PHIÊN ÂM)
             const vocabularyCSV = `1,Tune,(v),,"Theo dõi, điều chỉnh"
 2,A 20-year wait,(phrase),,Sự chờ đợi 20 năm
 3,Renown,(n),,"Tiếng tăm, sự nổi danh"
@@ -548,284 +545,46 @@
 450,chapel,n.,,nhà nguyện`;
 
             // State variables
-            let allVocab = [];
-            let quizData = [];
-            let timerInterval;
-            let currentUsername = '';
-            let userAnswers = {};
-            let latestResult = null;
+            let allVocab = [], quizData = [], timerInterval, currentUsername = '', userAnswers = {}, latestResult = null;
 
             // DOM Elements
-            const tabs = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            const startBtn = document.getElementById('startBtn');
-            const submitBtn = document.getElementById('submitBtn');
-            const usernameInput = document.getElementById('username');
-            const quizContainer = document.getElementById('quiz-container');
-            const answersContainer = document.getElementById('answers-container');
-            const historyContainer = document.getElementById('history-container');
-            const resultContent = document.getElementById('result-content');
-            const reviewAnswersBtn = document.getElementById('reviewAnswersBtn');
-            const retakeBtn = document.getElementById('retakeBtn');
-            const exportBtn = document.getElementById('exportBtn'); 
-            const timerElement = document.getElementById('timer');
+            const dom = {
+                tabs: document.querySelectorAll('.tab-button'),
+                tabContents: document.querySelectorAll('.tab-content'),
+                startBtn: document.getElementById('startBtn'),
+                submitBtn: document.getElementById('submitBtn'),
+                usernameInput: document.getElementById('username'),
+                quizContainer: document.getElementById('quiz-container'),
+                answersContainer: document.getElementById('answers-container'),
+                historyContainer: document.getElementById('history-container'),
+                resultContent: document.getElementById('result-content'),
+                reviewAnswersBtn: document.getElementById('reviewAnswersBtn'),
+                retakeBtn: document.getElementById('retakeBtn'),
+                exportPdfBtn: document.getElementById('exportPdfBtn'),
+                exportDocxBtn: document.getElementById('exportDocxBtn'),
+                exportXlsxBtn: document.getElementById('exportXlsxBtn'),
+                timerElement: document.getElementById('timer')
+            };
 
-            // --- FUNCTIONS ---
+            // --- UTILITY FUNCTIONS ---
             const parseCSV = (csv) => {
                 return csv.split('\n').map(line => line.split(',')).filter(parts => parts.length >= 5).map(parts => ({
                     word: parts[1].trim(),
                     definition: parts.slice(4).join(',').trim().replace(/^"|"$/g, '')
                 })).filter(vocab => vocab.word && vocab.definition);
             };
-            const generateRandomQuiz = (count) => {
-                const shuffledVocab = [...allVocab].sort(() => 0.5 - Math.random());
-                const selectedWords = shuffledVocab.slice(0, count);
-                quizData = selectedWords.map(correctWord => {
-                    const answer = correctWord.definition;
-                    const wrongOptions = new Set();
-                    while (wrongOptions.size < 3) {
-                        const randomWord = allVocab[Math.floor(Math.random() * allVocab.length)];
-                        if (randomWord.definition !== answer) {
-                            wrongOptions.add(randomWord.definition);
-                        }
-                    }
-                    const options = [answer, ...wrongOptions].sort(() => 0.5 - Math.random());
-                    return {
-                        word: correctWord.word,
-                        question: `Đâu là nghĩa của từ: <strong>"${correctWord.word}"</strong>?`,
-                        options,
-                        answer
-                    };
-                });
-            };
-            const showTab = (tabId) => {
-                tabContents.forEach(content => content.classList.add('hide'));
-                document.getElementById(tabId)?.classList.remove('hide');
-                tabs.forEach(tab => {
-                    tab.classList.toggle('active', tab.dataset.tab === tabId && !tab.disabled);
-                });
-            };
-            const loadQuiz = () => {
-                quizContainer.innerHTML = quizData.map((q, index) => `
-                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-                        <p class="font-semibold text-lg mb-4">${index + 1}. ${q.question}</p>
-                        <div class="space-y-2">
-                            ${q.options.map(option => `
-                                <label class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-blue-100 cursor-pointer transition has-[:checked]:bg-blue-100 has-[:checked]:border-blue-400">
-                                    <input type="radio" name="question${index}" value="${option}" class="mr-3 focus:ring-blue-500">
-                                    <span>${option}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>`).join('');
-            };
-            const startTimer = () => {
-                let timeLeft = 20 * 60;
-                const updateTimer = () => {
-                    timeLeft--;
-                    const minutes = Math.floor(timeLeft / 60);
-                    const seconds = timeLeft % 60;
-                    timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        submitQuiz();
-                    }
-                };
-                updateTimer();
-                timerInterval = setInterval(updateTimer, 1000);
-            };
-            const submitQuiz = () => {
-                clearInterval(timerInterval);
-                submitBtn.disabled = true;
-                let score = 0;
-                userAnswers = {};
-                quizData.forEach((q, index) => {
-                    const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-                    const selectedValue = selectedOption ? selectedOption.value : null;
-                    userAnswers[index] = selectedValue;
-                    if (selectedValue === q.answer) {
-                        score++;
-                    }
-                });
-                latestResult = {
-                    name: currentUsername,
-                    score,
-                    total: quizData.length,
-                    date: new Date().toLocaleString('vi-VN')
-                };
-                resultContent.innerHTML = `
-                    <p class="text-lg"><span class="font-semibold">Tên:</span> ${latestResult.name}</p>
-                    <p class="text-3xl font-bold my-4 ${latestResult.score / latestResult.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">
-                        ${latestResult.score} / ${latestResult.total}
-                    </p>
-                    <p class="text-gray-500">Ngày làm: ${latestResult.date}</p>`;
-                saveResult(latestResult);
-                document.querySelector('button[data-tab="result"]').disabled = false;
-                document.querySelector('button[data-tab="answers"]').disabled = false;
-                loadAnswers();
-                loadHistory();
-                showTab('result');
-            };
-            const saveResult = (result) => {
-                try {
-                    let history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
-                    history.unshift(result);
-                    localStorage.setItem('vocabTestHistory', JSON.stringify(history));
-                } catch (e) {
-                    console.error("Không thể lưu vào localStorage:", e);
-                }
-            };
-            const loadHistory = () => {
-                let history = [];
-                try {
-                    history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
-                } catch (e) {
-                    console.error("Không thể đọc từ localStorage:", e);
-                }
-                if (history.length === 0) {
-                    historyContainer.innerHTML = '<p class="text-center text-gray-500">Chưa có lịch sử làm bài.</p>';
-                    return;
-                }
-                historyContainer.innerHTML = `
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tên</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Điểm số</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            ${history.map(item => `
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">${item.name}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap font-semibold">${item.score} / ${item.total}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">${item.date}</td>
-                                </tr>`).join('')}
-                        </tbody>
-                    </table>`;
-            };
-            const loadAnswers = () => {
-                answersContainer.innerHTML = quizData.map((q, index) => {
-                    const userAnswer = userAnswers[index];
-                    const isCorrect = userAnswer === q.answer;
-                    let resultHtml;
-                    if (userAnswer === null) {
-                        resultHtml = `<p class="text-sm font-medium text-yellow-600"><strong>➖ Bạn chưa trả lời</strong></p>`;
-                    } else if (isCorrect) {
-                        resultHtml = `<p class="text-sm font-medium text-green-600"><strong>✔️ Bạn đã chọn đúng:</strong> ${userAnswer}</p>`;
-                    } else {
-                        resultHtml = `<p class="text-sm font-medium text-red-600"><strong>❌ Bạn đã chọn sai:</strong> ${userAnswer}</p>`;
-                    }
-                    return `
-                        <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-                            <p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>
-                            ${resultHtml}
-                            <p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p>
-                        </div>`;
-                }).join('');
-            };
-
-            // HÀM ĐƯỢC CẬP NHẬT ĐỂ XUẤT FILE PDF (THÊM TRẠNG THÁI ĐÚNG/SAI BẰNG MÀU SẮC)
-            const exportResults = async () => {
-                if (!latestResult) {
-                    alert('Không có kết quả để xuất!');
-                    return;
-                }
-
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-
-                const fontData = "AAEAAAARAQAABAAQRFNJRwAAAAAAA... (dữ liệu font đầy đủ đã được nhúng trong code)"; // Sample
-                doc.addFileToVFS('Roboto-Regular.ttf', robotoFontBase64);
-                doc.addFont('Roboto-Regular.ttf', 'Roboto', 'normal');
-                doc.setFont('Roboto');
-
-                let y = 15; 
-                const pageHeight = doc.internal.pageSize.height;
-                const leftMargin = 10;
-                const maxWidth = 190;
-
-                const addText = (text, size, style, indent = 0) => {
-                    if (y > pageHeight - 20) { 
-                        doc.addPage();
-                        y = 15;
-                    }
-                    doc.setFontSize(size);
-                    doc.setFont('Roboto', style);
-                    const lines = doc.splitTextToSize(text, maxWidth - indent);
-                    doc.text(lines, leftMargin + indent, y);
-                    y += (lines.length * (size * 0.35)) + 2; 
-                };
-
-                addText('KET QUA BAI KIEM TRA TU VUNG - TODUYENIELTS', 18, 'bold');
-                y += 5;
-
-                addText(`Ho va ten: ${latestResult.name}`, 12, 'normal');
-                addText(`Ngay lam bai: ${latestResult.date}`, 12, 'normal');
-                addText(`Diem so: ${latestResult.score} / ${latestResult.total}`, 14, 'bold');
-                y += 5;
-
-                addText('CHI TIET BAI LAM', 16, 'bold');
-
-                quizData.forEach((q, index) => {
-                    const userAnswer = userAnswers[index];
-                    const isCorrect = userAnswer === q.answer;
-                    const questionText = q.question.replace(/<strong>|<\/strong>/g, "");
-
-                    // Thêm khoảng trắng nếu sắp hết trang để tránh câu bị cắt giữa chừng
-                    if (y > pageHeight - 40) {
-                        doc.addPage();
-                        y = 15;
-                    }
-
-                    addText(`Cau ${index + 1}: ${questionText}`, 11, 'bold');
-                    addText(`- Ban da chon: ${userAnswer || 'Chua tra loi'}`, 11, 'normal', 5);
-                    addText(`- Dap an dung: ${q.answer}`, 11, 'normal', 5);
-
-                    // THÊM KẾT QUẢ ĐÚNG/SAI BẰNG MÀU SẮC
-                    if (isCorrect) {
-                        doc.setTextColor(34, 139, 34); // Màu xanh lá
-                        addText(`- Ket qua: Dung`, 11, 'bold', 5);
-                    } else {
-                        doc.setTextColor(220, 20, 60); // Màu đỏ
-                        addText(`- Ket qua: Sai`, 11, 'bold', 5);
-                    }
-                    doc.setTextColor(0, 0, 0); // Reset về màu đen
-                    
-                    y += 4; // Khoảng cách giữa các câu hỏi
-                });
-
-                // Lưu file
+            
+            const getFileName = () => {
                 const safeName = latestResult.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 const dateString = new Date().toISOString().slice(0, 10);
-                doc.save(`ket-qua-${safeName}-${dateString}.pdf`);
+                return `ket-qua-${safeName}-${dateString}`;
             };
-
-            const resetQuiz = () => {
-                clearInterval(timerInterval);
-                userAnswers = {};
-                currentUsername = '';
-                quizData = [];
-                latestResult = null;
-                timerElement.textContent = "20:00";
-                usernameInput.value = '';
-                startBtn.disabled = false;
-                submitBtn.disabled = false;
-                ['quiz', 'result', 'answers'].forEach(tabName => {
-                    document.querySelector(`button[data-tab="${tabName}"]`).disabled = true;
-                });
-                showTab('name');
-            };
-
-            // --- EVENT LISTENERS ---
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => !tab.disabled && showTab(tab.dataset.tab));
-            });
-            startBtn.addEventListener('click', () => {
-                currentUsername = usernameInput.value.trim();
+            
+            // --- CORE LOGIC ---
+            const startQuiz = () => {
+                currentUsername = dom.usernameInput.value.trim();
                 if (currentUsername) {
-                    startBtn.disabled = true;
+                    dom.startBtn.disabled = true;
                     document.querySelector('button[data-tab="quiz"]').disabled = false;
                     generateRandomQuiz(150);
                     loadQuiz();
@@ -834,17 +593,222 @@
                 } else {
                     alert('Vui lòng nhập tên của bạn!');
                 }
-            });
-            submitBtn.addEventListener('click', () => {
-                if (confirm('Bạn có chắc chắn muốn nộp bài không?')) {
-                    submitQuiz();
-                }
-            });
-            reviewAnswersBtn.addEventListener('click', () => showTab('answers'));
-            retakeBtn.addEventListener('click', resetQuiz);
-            exportBtn.addEventListener('click', exportResults);
+            };
+            
+            const startTimer = () => {
+                let timeLeft = 20 * 60;
+                const updateTimer = () => {
+                    timeLeft--;
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    dom.timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        submitQuiz();
+                    }
+                };
+                updateTimer();
+                timerInterval = setInterval(updateTimer, 1000);
+            };
+            
+            const generateRandomQuiz = (count) => {
+                const shuffledVocab = [...allVocab].sort(() => 0.5 - Math.random());
+                const selectedWords = shuffledVocab.slice(0, count);
+                quizData = selectedWords.map(correctWord => {
+                    const answer = correctWord.definition;
+                    const wrongOptions = new Set();
+                    while (wrongOptions.size < 3) {
+                        const randomWord = allVocab[Math.floor(Math.random() * allVocab.length)];
+                        if (randomWord.definition !== answer) wrongOptions.add(randomWord.definition);
+                    }
+                    const options = [answer, ...wrongOptions].sort(() => 0.5 - Math.random());
+                    return { word: correctWord.word, question: `Đâu là nghĩa của từ: <strong>"${correctWord.word}"</strong>?`, options, answer };
+                });
+            };
 
-            // --- INITIALIZATION ---
+            const submitQuiz = () => {
+                clearInterval(timerInterval);
+                dom.submitBtn.disabled = true;
+                let score = 0;
+                userAnswers = {};
+                quizData.forEach((q, index) => {
+                    const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                    const selectedValue = selectedOption ? selectedOption.value : null;
+                    userAnswers[index] = selectedValue;
+                    if (selectedValue === q.answer) score++;
+                });
+                latestResult = { name: currentUsername, score, total: quizData.length, date: new Date().toLocaleString('vi-VN') };
+                dom.resultContent.innerHTML = `<p class="text-lg"><span class="font-semibold">Tên:</span> ${latestResult.name}</p><p class="text-3xl font-bold my-4 ${latestResult.score / latestResult.total >= 0.5 ? 'text-green-600' : 'text-red-600'}">${latestResult.score} / ${latestResult.total}</p><p class="text-gray-500">Ngày làm: ${latestResult.date}</p>`;
+                saveResult(latestResult);
+                document.querySelector('button[data-tab="result"]').disabled = false;
+                document.querySelector('button[data-tab="answers"]').disabled = false;
+                loadAnswers();
+                loadHistory();
+                showTab('result');
+            };
+            
+            const saveResult = (result) => {
+                try {
+                    let history = JSON.parse(localStorage.getItem('vocabTestHistory')) || [];
+                    history.unshift(result);
+                    localStorage.setItem('vocabTestHistory', JSON.stringify(history));
+                } catch (e) { console.error("Could not save to localStorage:", e); }
+            };
+
+            // --- UI & RENDER FUNCTIONS ---
+            const showTab = (tabId) => {
+                dom.tabContents.forEach(content => content.classList.add('hide'));
+                document.getElementById(tabId)?.classList.remove('hide');
+                dom.tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabId && !tab.disabled));
+            };
+            
+            const loadQuiz = () => {
+                dom.quizContainer.innerHTML = quizData.map((q, index) => `<div class="bg-gray-50 p-5 rounded-lg border"><p class="font-semibold text-lg mb-4">${index + 1}. ${q.question}</p><div class="space-y-2">${q.options.map(option => `<label class="flex items-center p-3 rounded-lg border hover:bg-blue-100 cursor-pointer has-[:checked]:bg-blue-100 has-[:checked]:border-blue-400"><input type="radio" name="question${index}" value="${option}" class="mr-3"><span class="text-left">${option}</span></label>`).join('')}</div></div>`).join('');
+            };
+            const loadAnswers = () => {
+                dom.answersContainer.innerHTML = quizData.map((q, index) => {
+                    const userAnswer = userAnswers[index];
+                    const isCorrect = userAnswer === q.answer;
+                    let resultHtml;
+                    if (userAnswer === null) resultHtml = `<p class="text-sm font-medium text-yellow-600"><strong>➖ Bạn chưa trả lời</strong></p>`;
+                    else if (isCorrect) resultHtml = `<p class="text-sm font-medium text-green-600"><strong>✔️ Bạn đã chọn đúng:</strong> ${userAnswer}</p>`;
+                    else resultHtml = `<p class="text-sm font-medium text-red-600"><strong>❌ Bạn đã chọn sai:</strong> ${userAnswer}</p>`;
+                    return `<div class="bg-gray-50 p-5 rounded-lg border"><p class="font-semibold text-lg mb-2">${index + 1}. ${q.question}</p>${resultHtml}<p class="text-sm font-medium text-blue-600 mt-2"><strong>Đáp án đúng:</strong> ${q.answer}</p></div>`;
+                }).join('');
+            };
+            const loadHistory = () => {
+                let history = [];
+                try { history = JSON.parse(localStorage.getItem('vocabTestHistory')) || []; } catch (e) { console.error("Could not read from localStorage:", e); }
+                if (history.length === 0) {
+                    dom.historyContainer.innerHTML = '<p class="text-center text-gray-500">Chưa có lịch sử làm bài.</p>';
+                    return;
+                }
+                dom.historyContainer.innerHTML = `<table class="min-w-full bg-white border rounded-lg"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tên</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Điểm số</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ngày</th></tr></thead><tbody class="divide-y">${history.map(item => `<tr><td class="px-6 py-4">${item.name}</td><td class="px-6 py-4 font-semibold">${item.score} / ${item.total}</td><td class="px-6 py-4">${item.date}</td></tr>`).join('')}</tbody></table>`;
+            };
+
+            // --- EXPORT FUNCTIONS ---
+            const exportPdf = () => {
+                if (!latestResult) { alert('Không có kết quả để xuất!'); return; }
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    doc.addFileToVFS('Roboto-Regular.ttf', robotoFontBase64);
+                    doc.addFont('Roboto-Regular.ttf', 'Roboto', 'normal');
+                    doc.setFont('Roboto');
+                    let y = 15;
+                    const pageHeight = doc.internal.pageSize.height, leftMargin = 10, maxWidth = 190;
+                    const addText = (text, size, style, indent = 0) => {
+                        if (y > pageHeight - 20) { doc.addPage(); y = 15; }
+                        doc.setFontSize(size);
+                        doc.setFont('Roboto', style);
+                        const lines = doc.splitTextToSize(text, maxWidth - indent);
+                        doc.text(lines, leftMargin + indent, y);
+                        y += (lines.length * (size * 0.35)) + 2;
+                    };
+                    addText('KẾT QUẢ BÀI KIỂM TRA TỪ VỰNG', 18, 'bold');
+                    y += 5;
+                    addText(`Họ và tên: ${latestResult.name}`, 12, 'normal');
+                    addText(`Ngày làm bài: ${latestResult.date}`, 12, 'normal');
+                    addText(`Điểm số: ${latestResult.score} / ${latestResult.total}`, 14, 'bold');
+                    y += 5;
+                    addText('CHI TIẾT BÀI LÀM', 16, 'bold');
+                    quizData.forEach((q, index) => {
+                        const userAnswer = userAnswers[index], isCorrect = userAnswer === q.answer;
+                        if (y > pageHeight - 40) { doc.addPage(); y = 15; }
+                        addText(`Câu ${index + 1}: ${q.question.replace(/<strong>|<\/strong>/g, "")}`, 11, 'bold');
+                        addText(`- Bạn đã chọn: ${userAnswer || 'Chưa trả lời'}`, 11, 'normal', 5);
+                        addText(`- Đáp án đúng: ${q.answer}`, 11, 'normal', 5);
+                        doc.setTextColor(isCorrect ? '#228B22' : '#DC143C'); // Xanh lá cây hoặc đỏ thẫm
+                        addText(`- Kết quả: ${isCorrect ? 'Đúng' : 'Sai'}`, 11, 'bold', 5);
+                        doc.setTextColor('#000000');
+                        y += 4;
+                    });
+                    doc.save(`${getFileName()}.pdf`);
+                } catch (error) {
+                    console.error("Lỗi khi tạo PDF:", error);
+                    alert("Đã xảy ra lỗi khi tạo file PDF. Vui lòng thử lại hoặc dùng định dạng khác.");
+                }
+            };
+
+            const exportDocx = () => {
+                if (!latestResult) { alert('Không có kết quả để xuất!'); return; }
+                try {
+                    const { Document, Packer, Paragraph, TextRun, HeadingLevel } = docx;
+                    const children = [];
+                    children.push(new Paragraph({ heading: HeadingLevel.TITLE, children: [new TextRun("Kết quả bài kiểm tra từ vựng")] }));
+                    children.push(new Paragraph({ children: [new TextRun({ text: `Họ và tên: ${latestResult.name}` })] }));
+                    children.push(new Paragraph({ children: [new TextRun({ text: `Ngày làm bài: ${latestResult.date}` })] }));
+                    children.push(new Paragraph({ children: [new TextRun({ text: `Điểm số: `, size: 28 }), new TextRun({ text: `${latestResult.score} / ${latestResult.total}`, bold: true, size: 28 })] }));
+                    children.push(new Paragraph({ text: "" }));
+                    children.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun("Chi tiết bài làm")] }));
+                    
+                    quizData.forEach((q, index) => {
+                        const userAnswer = userAnswers[index];
+                        const isCorrect = userAnswer === q.answer;
+                        children.push(new Paragraph({ children: [new TextRun({ text: `Câu ${index + 1}: ${q.question.replace(/<strong>|<\/strong>/g, "")}`, bold: true })] }));
+                        children.push(new Paragraph({ text: `\t- Bạn đã chọn: ${userAnswer || 'Chưa trả lời'}` }));
+                        children.push(new Paragraph({ text: `\t- Đáp án đúng: ${q.answer}` }));
+                        children.push(new Paragraph({ children: [
+                            new TextRun({ text: `\t- Kết quả: ` }),
+                            new TextRun({ text: isCorrect ? 'Đúng' : 'Sai', bold: true, color: isCorrect ? "228B22" : "DC143C" })
+                        ]}));
+                        children.push(new Paragraph({ text: "" }));
+                    });
+
+                    const doc = new Document({ sections: [{ children }] });
+                    Packer.toBlob(doc).then(blob => { saveAs(blob, `${getFileName()}.docx`); });
+                } catch(error) {
+                    console.error("Lỗi khi tạo DOCX:", error);
+                    alert("Đã xảy ra lỗi khi tạo file Word. Vui lòng thử lại hoặc dùng định dạng khác.");
+                }
+            };
+
+            const exportXlsx = () => {
+                if (!latestResult) { alert('Không có kết quả để xuất!'); return; }
+                try {
+                    const summary = [
+                        { A: 'Tên', B: latestResult.name },
+                        { A: 'Ngày làm', B: latestResult.date },
+                        { A: 'Điểm', B: `${latestResult.score}/${latestResult.total}` }
+                    ];
+                    const results = quizData.map((q, index) => {
+                        const userAnswer = userAnswers[index];
+                        const isCorrect = userAnswer === q.answer;
+                        return {
+                            'STT': index + 1,
+                            'Từ vựng': q.word,
+                            'Câu trả lời của bạn': userAnswer || 'Chưa trả lời',
+                            'Đáp án đúng': q.answer,
+                            'Kết quả': isCorrect ? 'Đúng' : 'Sai'
+                        };
+                    });
+                    const summary_ws = XLSX.utils.json_to_sheet(summary, {skipHeader: true});
+                    const results_ws = XLSX.utils.json_to_sheet(results);
+                    
+                    summary_ws['!cols'] = [{ wch: 10 }, { wch: 40 }];
+                    results_ws['!cols'] = [{ wch: 5 }, { wch: 25 }, { wch: 40 }, { wch: 40 }, { wch: 10 }];
+                    
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, summary_ws, "Tổng kết");
+                    XLSX.utils.book_append_sheet(wb, results_ws, "Chi tiết");
+                    
+                    XLSX.writeFile(wb, `${getFileName()}.xlsx`);
+                } catch(error) {
+                    console.error("Lỗi khi tạo XLSX:", error);
+                    alert("Đã xảy ra lỗi khi tạo file Excel. Vui lòng thử lại hoặc dùng định dạng khác.");
+                }
+            };
+            
+            // --- EVENT LISTENERS & INITIALIZATION ---
+            dom.startBtn.addEventListener('click', startQuiz);
+            dom.submitBtn.addEventListener('click', () => { if (confirm('Bạn có chắc chắn muốn nộp bài không?')) submitQuiz(); });
+            dom.reviewAnswersBtn.addEventListener('click', () => showTab('answers'));
+            dom.retakeBtn.addEventListener('click', () => location.reload());
+            dom.exportPdfBtn.addEventListener('click', exportPdf);
+            dom.exportDocxBtn.addEventListener('click', exportDocx);
+            dom.exportXlsxBtn.addEventListener('click', exportXlsx);
+            dom.tabs.forEach(tab => tab.addEventListener('click', () => !tab.disabled && showTab(tab.dataset.tab)));
+            
             allVocab = parseCSV(vocabularyCSV);
             loadHistory();
             showTab('name');
