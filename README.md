@@ -1,9 +1,9 @@
-<Helloo>
+<Xin Chào>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDuyenIELTS - Kiểm tra 200 từ vựng</title>
+    <title>ToDuyenIELTS - Kiểm tra 150 từ vựng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -29,8 +29,8 @@
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div class="p-6 bg-blue-600 text-white">
                 <h2 class="text-center text-lg font-semibold text-blue-200">ToDuyenIELTS</h2>
-                <h1 class="text-3xl font-bold text-center mt-1">Bài kiểm tra 200 từ vựng</h1>
-                <p class="text-center text-blue-200 mt-2">200 câu hỏi trong 20 phút</p>
+                <h1 class="text-3xl font-bold text-center mt-1">Bài kiểm tra 150 từ vựng</h1>
+                <p class="text-center text-blue-200 mt-2">150 câu hỏi trong 20 phút</p>
             </div>
 
             <nav class="flex flex-wrap justify-center border-b border-gray-200 bg-gray-50">
@@ -42,7 +42,6 @@
             </nav>
 
             <main class="p-6 sm:p-8">
-                <!-- Cửa sổ 1: Nhập tên -->
                 <div id="name" class="tab-content">
                     <h2 class="text-2xl font-semibold mb-4 text-center text-blue-800">Chào mừng bạn!</h2>
                     <p class="text-center text-gray-700 mb-6">Vui lòng nhập tên của bạn để bắt đầu bài kiểm tra.</p>
@@ -52,44 +51,36 @@
                     </div>
                 </div>
 
-                <!-- Cửa sổ 2: Bài làm -->
                 <div id="quiz" class="tab-content hide">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-semibold text-blue-800">Câu hỏi</h2>
                         <div id="timer" class="text-xl font-bold bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">20:00</div>
                     </div>
                     <div id="quiz-container" class="space-y-6">
-                        <!-- Các câu hỏi sẽ được chèn vào đây bởi JavaScript -->
-                    </div>
+                        </div>
                     <button id="submitBtn" class="w-full mt-8 bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Nộp bài</button>
                 </div>
 
-                <!-- Cửa sổ 3: Kết quả -->
                 <div id="result" class="tab-content hide text-center">
                     <h2 class="text-2xl font-semibold mb-4 text-blue-800">Hoàn thành!</h2>
                     <div id="result-content" class="bg-gray-50 p-8 rounded-lg space-y-3 max-w-md mx-auto">
-                        <!-- Nội dung kết quả sẽ được chèn vào đây -->
-                    </div>
+                        </div>
                     <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4">
                         <button id="retakeBtn" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105">Làm lại</button>
                         <button id="reviewAnswersBtn" class="w-full sm:w-auto bg-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-600 transition-transform transform hover:scale-105">Xem đáp án</button>
                     </div>
                 </div>
 
-                <!-- Cửa sổ 4: Đáp án -->
                 <div id="answers" class="tab-content hide">
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Đáp án chi tiết</h2>
                     <div id="answers-container" class="space-y-4">
-                        <!-- Nội dung đáp án sẽ được chèn vào đây -->
-                    </div>
+                        </div>
                 </div>
 
-                <!-- Cửa sổ 5: Lịch sử -->
                 <div id="history" class="tab-content hide">
                     <h2 class="text-2xl font-semibold mb-6 text-center text-blue-800">Lịch sử làm bài</h2>
                     <div id="history-container" class="overflow-x-auto">
-                        <!-- Bảng lịch sử sẽ được chèn vào đây -->
-                    </div>
+                        </div>
                 </div>
             </main>
         </div>
@@ -111,192 +102,442 @@
 12,In executive roles,(phrase),/ɪn ɪɡˈzekjətɪv rəʊlz/,Trong vai trò quản lý/điều hành
 13,Coworker,(n),/ˈkəʊwɜːkə(r)/,Đồng nghiệp
 14,Discrepancy,(n),/dɪˈskrepənsi/,"Sự khác nhau, sự không nhất quán"
-15,In the mean time,(phrase),/ɪn ðə miːn taɪm/,Trong khi chờ đợi
-16,In the short term,(phrase),/ɪn ðə ʃɔːt tɜːm/,Trong thời gian ngắn
-17,Auspicious,(a),/ɔːˈspɪʃəs/,"Có triển vọng, thuận lợi"
-18,Initiative,(n),/ɪˈnɪʃətɪv/,"Sáng kiến, sự khởi đầu"
-19,Launch,(v),/lɔːntʃ/,"Bắt đầu, khởi động"
-20,Proceed,(v),/prəˈsiːd/,"Tiếp tục, tiến hành"
-21,Tax,(n),/tæks/,Thuế
-22,Revenue,(n),/ˈrevənjuː/,Doanh thu
-23,Fine,(n),/faɪn/,Tiền phạt
-24,Infrastructure,(n),/ˈɪnfrəstrʌktʃə(r)/,Cơ sở hạ tầng
-25,Well-being,(n),/ˌwel ˈbiːɪŋ/,"Sức khỏe, hạnh phúc"
-26,Attribute,(v),/əˈtrɪbjuːt/,"Quy cho, cho là do"
-27,Telecommuting,(n),/ˈtelikəmjuːtɪŋ/,"Làm việc từ xa"
-28,Poll,(n),/pəʊl/,Cuộc thăm dò ý kiến
-29,Contradict,(v),/ˌkɒntrəˈdɪkt/,"Mâu thuẫn, trái với"
-30,Contention,(n),/kənˈtenʃn/,"Sự tranh cãi, sự bất đồng"
-31,Invaluable,(a),/ɪnˈvæljuəbl/,Vô giá
-32,Outweigh,(v),/ˌaʊtˈweɪ/,"Vượt trội, có giá trị hơn"
-33,Downside,(n),/ˈdaʊnsaɪd/,Mặt hạn chế
-34,Resentment,(n),/rɪˈzentmənt/,"Sự oán giận, sự phẫn uất"
-35,Commitment,(n),/kəˈmɪtmənt/,"Sự cam kết, sự tận tụy"
-36,Conceal,(v),/kənˈsiːl/,"Che giấu, giấu diếm"
-37,Predecessor,(n),/ˈpriːdɪsesə(r)/,Người tiền nhiệm
-38,Standpoint,(n),/ˈstændpɔɪnt/,Quan điểm
-39,Unprecedented,(a),/ʌnˈpresɪdentɪd/,Chưa từng có tiền lệ
-40,Skepticism,(n),/ˈskeptɪsɪzəm/,"Thái độ hoài nghi"
-41,Acclaim,(n),/əˈkleɪm/,"Sự hoan nghênh, sự ca ngợi"
-42,Adversely,(adv),/ˈædvɜːsli/,Một cách bất lợi
-43,Appealing,(a),/əˈpiːlɪŋ/,"Hấp dẫn, lôi cuốn"
-44,Contemporary,(a),/kənˈtemprəri/,Đương đại
-45,Disrupt,(v),/dɪsˈrʌpt/,"Làm gián đoạn, phá vỡ"
-46,Haphazardly,(adv),/hæpˈhæzədli/,Một cách bừa bãi
-47,Persistent,(a),/pəˈsɪstənt/,"Kiên trì, bền bỉ"
-48,Valid,(a),/ˈvælɪd/,"Hợp lệ, có hiệu lực"
-49,Withdraw,(v),/wɪðˈdrɔː/,"Rút lui, rút tiền"
-50,Evident,(a),/ˈevɪdənt/,"Hiển nhiên, rõ ràng"
-51,Come to a halt,(v),/kʌm tuː ə hɔːlt/,"Dừng lại, tạm ngưng"
-52,Inadvertently,(adv),/ˌɪnədˈvɜːtəntli/,Một cách vô tình
-53,To be set to,(v),/tuː biː set tuː/,"Sắp sửa, được dự định"
-54,To be likely to,(v),/tuː biː ˈlaɪkli tuː/,Có khả năng
-55,To be certain to,(v),/tuː biː ˈsɜːtn tuː/,Chắc chắn sẽ
-56,To be sure to,(v),/tuː biː ʃʊə tuː/,Chắc chắn sẽ
-57,To be bound to,(v),/tuː biː baʊnd tuː/,Chắc chắn sẽ
-58,To be due to,(v),/tuː biː djuː tuː/,"Do, bởi"
-59,To be supposed to,(v),/tuː biː səˈpəʊzd tuː/,"Được cho là, có nhiệm vụ"
-60,To be meant to,(v),/tuː biː ment tuː/,Có ý định
-61,To be obliged to,(v),/tuː biː əˈblaɪdʒd tuː/,"Bị buộc, có nghĩa vụ"
-62,Advantageous,(a),/ˌædvənˈteɪdʒəs/,Thuận lợi
-63,Ecology,(n),/iˈkɒlədʒi/,Sinh thái học
-64,Elude,(v),/iˈluːd/,"Lẩn tránh, thoát khỏi"
-65,Erode,(v),/ɪˈrəʊd/,"Xói mòn, ăn mòn"
-66,Perpetuate,(v),/pəˈpetʃueɪt/,"Làm cho tồn tại mãi mãi"
-67,Redundant,(a),/rɪˈdʌndənt/,"Thừa, dư"
-68,Integrate,(v),/ˈɪntɪɡreɪt/,Hội nhập
-69,Infer,(v),/ɪnˈfɜː(r)/,Suy ra
-70,Confer,(v),/kənˈfɜː(r)/,"Bàn bạc, hội ý"
-71,Cite,(v),/saɪt/,"Trích dẫn"
-72,Imply,(v),/ɪmˈplaɪ/,Ám chỉ
-73,Whereas,(conj),/weərˈæz/,Trong khi
-74,Abide by,(v),/əˈbaɪd baɪ/,"Tuân theo, tôn trọng"
-75,Cancel,(v),/ˈkænsəl/,Hủy bỏ
-76,Determine,(v),/dɪˈtɜːmɪn/,Xác định
-77,Engage,(v),/ɪnˈɡeɪdʒ/,"Tham gia, cam kết"
-78,Establish,(v),/ɪˈstæblɪʃ/,Thành lập
-79,Obligate,(v),/ˈɒblɪɡeɪt/,"Bắt buộc, ép buộc"
-80,Provision,(n),/prəˈvɪʒn/,"Sự cung cấp, điều khoản"
-81,Resolve,(v),/rɪˈzɒlv/,Giải quyết
-82,Assurance,(n),/əˈʃʊərəns/,"Sự đảm bảo, sự chắc chắn"
-83,Bargain,(n),/ˈbɑːɡən/,Sự mặc cả
-84,Competition,(n),/ˌkɒmpəˈtɪʃn/,Sự cạnh tranh
-85,Market,(n),/ˈmɑːkɪt/,Thị trường
-86,Attract,(v),/əˈtrækt/,Thu hút
-87,Compare,(v),/kəmˈpeə(r)/,So sánh
-88,Consume,(v),/kənˈsjuːm/,Tiêu thụ
-89,Convince,(v),/kənˈvɪns/,Thuyết phục
-90,Fad,(n),/fæd/,"Mốt nhất thời, sự thích thú tạm thời"
-91,Inspire,(v),/ɪnˈspaɪə(r)/,Truyền cảm hứng
-92,Persuasion,(n),/pəˈsweɪʒn/,"Sự thuyết phục, sự tin tưởng"
-93,Productive,(a),/prəˈdʌktɪv/,Năng suất
-94,Satisfaction,(n),/ˌsætɪsˈfækʃn/,"Sự hài lòng, sự thỏa mãn"
-95,Consequence,(n),/ˈkɒnsɪkwəns/,Hậu quả
-96,Reputation,(n),/ˌrepjuˈteɪʃn/,"Danh tiếng, uy tín"
-97,Require,(v),/rɪˈkwaɪə(r)/,Yêu cầu
-98,Variety,(n),/vəˈraɪəti/,"Sự đa dạng, nhiều thứ"
-99,Consider,(v),/kənˈsɪdə(r)/,Cân nhắc
-100,Protect,(v),/prəˈtekt/,Bảo vệ
-101,Gather,(v),/ˈɡæðə(r)/,Tập hợp
-102,Offer,(v),/ˈɒfə(r)/,Đề nghị
-103,Primarily,(adv),/ˈpraɪmərəli/,Chủ yếu
-104,Strategy,(n),/ˈstrætədʒi/,Chiến lược
-105,Substitution,(n),/ˌsʌbstɪˈtjuːʃn/,Sự thay thế
-106,Demonstrate,(v),/ˈdemənstreɪt/,Chứng minh
-107,Develop,(v),/dɪˈveləp/,Phát triển
-108,Evaluate,(v),/ɪˈvæljueɪt/,Đánh giá
-109,Predict,(v),/prɪˈdɪkt/,Dự đoán
-110,Strong,(a),/strɒŋ/,Mạnh mẽ
-111,Address,(n),/əˈdres/,Địa chỉ
-112,Avoid,(v),/əˈvɔɪd/,Tránh
-113,Effective,(a),/ɪˈfektɪv/,Hiệu quả
-114,Present,(v),/prɪˈzent/,Trình bày
-115,Solve,(v),/sɒlv/,Giải quyết
-116,Appreciate,(v),/əˈpriːʃieɪt/,Đánh giá cao
-117,Confident,(a),/ˈkɒnfɪdənt/,Tự tin
-118,Frequently,(adv),/ˈfriːkwəntli/,Thường xuyên
-119,Promise,(v),/ˈprɒmɪs/,Hứa
-120,Accommodate,(v),/əˈkɒmədeɪt/,"Cung cấp, đáp ứng"
-121,Arrangement,(n),/əˈreɪndʒmənt/,"Sự sắp xếp, sự dàn xếp"
-122,Association,(n),/əˌsəʊʃiˈeɪʃn/,"Hiệp hội, sự liên kết"
-123,Register,(v),/ˈredʒɪstə(r)/,Đăng ký
-124,Select,(v),/sɪˈlekt/,Lựa chọn
-125,Session,(n),/ˈseʃn/,Phiên họp
-126,Take part in,(v),/teɪk pɑːt ɪn/,Tham gia
-127,Access,(v),/ˈækses/,Truy cập
-128,Allocate,(v),/ˈæləkeɪt/,Phân bổ
-129,Compatible,(a),/kəmˈpætəbl/,Tương thích
-130,Duplicate,(v),/ˈdjuːplɪkeɪt/,Sao chép
-131,Failure,(n),/ˈfeɪljə(r)/,Thất bại
-132,Figure out,(v),/ˈfɪɡə(r) aʊt/,Tìm ra
-133,Ignore,(v),/ɪɡˈnɔː(r)/,Phớt lờ
-134,Search,(v),/sɜːtʃ/,Tìm kiếm
-135,Shut down,(v),/ʃʌt daʊn/,Tắt
-136,Warning,(n),/ˈwɔːnɪŋ/,Cảnh báo
-137,Affordable,(a),/əˈfɔːdəbl/,Giá cả phải chăng
-138,Capacity,(n),/kəˈpæsəti/,"Sức chứa, năng lực"
-139,Durable,(a),/ˈdjʊərəbl/,Bền
-140,Initiate,(v),/ɪˈnɪʃieɪt/,Khởi xướng
-141,Physically,(adv),/ˈfɪzɪkli/,Thể chất
-142,Provider,(n),/prəˈvaɪdə(r)/,Nhà cung cấp
-143,Recur,(v),/rɪˈkɜː(r)/,Tái diễn
-144,Reduction,(n),/rɪˈdʌkʃn/,Sự giảm bớt
-145,Stay on top of,(v),/steɪ ɒn tɒp ɒv/,Nắm bắt
-146,Stock,(n),/stɒk/,Hàng tồn kho
-147,Appreciation,(n),/əˌpriːʃiˈeɪʃn/,"Sự đánh giá cao, sự cảm kích"
-148,Bring in,(v),/brɪŋ ɪn/,Thuê
-149,Casually,(adv),/ˈkæʒuəli/,Tình cờ
-150,Code,(n),/kəʊd/,Quy tắc
-151,Expose,(v),/ɪkˈspəʊz/,Phơi bày
-152,Glimpse,(n),/ɡlɪmps/,"Cái nhìn thoáng qua"
-153,Out of,(a),/aʊt ɒv/,Hết
-154,Outdated,(a),/ˌaʊtˈdeɪtɪd/,Lỗi thời
-155,Practice,(n),/ˈpræktɪs/,Thực hành
-156,Reinforce,(v),/ˌriːɪnˈfɔːs/,Củng cố
-157,Verbally,(adv),/ˈvɜːbəli/,Bằng lời nói
-158,Disk,(n),/dɪsk/,Đĩa
-159,Facilitate,(v),/fəˈsɪlɪteɪt/,Tạo điều kiện
-160,Network,(v),/ˈnetwɜːk/,Kết nối
-161,Popularity,(n),/ˌpɒpjuˈlærəti/,"Sự nổi tiếng, sự phổ biến"
-162,Process,(n),/ˈprəʊses/,Quá trình
-163,Replace,(v),/rɪˈpleɪs/,Thay thế
-164,Revolution,(n),/ˌrevəˈluːʃn/,Cuộc cách mạng
-165,Sharp,(a),/ʃɑːp/,Sắc bén
-166,Skill,(n),/skɪl/,Kỹ năng
-167,Software,(n),/ˈsɒftweə(r)/,Phần mềm
-168,Store,(v),/stɔː(r)/,Lưu trữ
-169,Technically,(adv),/ˈteknɪkli/,Về mặt kỹ thuật
-170,Assemble,(v),/əˈsembl/,Lắp ráp
-171,Beforehand,(adv),/bɪˈfɔːhænd/,Trước
-172,Complicated,(a),/ˈkɒmplɪkeɪtɪd/,Phức tạp
-173,Courier,(n),/ˈkʊriə(r)/,Người đưa thư
-174,Express,(a),/ɪkˈspres/,Nhanh
-175,Fold,(v),/fəʊld/,Gấp
-176,Layout,(n),/ˈleɪaʊt/,Bố cục
-177,Mention,(v),/ˈmenʃn/,Đề cập
-178,Petition,(n),/pəˈtɪʃn/,Đơn kiến nghị
-179,Proof,(v),/pruːf/,Bằng chứng
-180,Registered,(a),/ˈredʒɪstəd/,Đã đăng ký
-181,Revise,(v),/rɪˈvaɪz/,Sửa đổi
-182,Abundant,(a),/əˈbʌndənt/,Dồi dào
-183,Accomplishment,(n),/əˈkʌmplɪʃmənt/,Thành tựu
-184,Bring together,(v),/brɪŋ təˈɡeðə(r)/,Gắn kết
-185,Candidate,(n),/ˈkændɪdət/,Ứng cử viên
-186,Come up with,(v),/kʌm ʌp wɪð/,Nghĩ ra
-187,Commensurate,(a),/kəˈmenʃərət/,Tương xứng
-188,Match,(n),/mætʃ/,Sự phù hợp
-189,Profile,(n),/ˈprəʊfaɪl/,Hồ sơ
-190,Qualification,(n),/ˌkwɒlɪfɪˈkeɪʃn/,Bằng cấp
-191,Recruit,(v),/rɪˈkruːt/,Tuyển dụng
-192,Submit,(v),/səbˈmɪt/,Nộp
-193,Time-consuming,(a),/ˈtaɪm kənsjuːmɪŋ/,Tốn thời gian
-194,Ability,(n),/əˈbɪləti/,Khả năng
-195,Apply,(v),/əˈplaɪ/,Nộp đơn
-196,Background,(n),/ˈbækɡraʊnd/,Lý lịch
-197,Be ready for,(v),/biː ˈredi fɔː(r)/,Sẵn sàng cho
-198,Call in,(v),/kɔːl ɪn/,Gọi đến
-199,Constantly,(adv),/ˈkɒnstəntli/,Liên tục
-200,Expert,(n),/ˈekspɜːt/,Chuyên gia`;
+15,Token,(a),/ˈtəʊkən/,Tượng trưng
+16,Well-deserved roles,(phrase),/ˌwel dɪˈzɜːvd rəʊlz/,Vai trò xứng đáng
+17,The relevance of,(phrase),/ðə ˈreləvəns ɒv/,Sự liên quan của
+18,Tangible,(a),/ˈtændʒəbl/,Hữu hình
+19,Intangible,(a),/ɪnˈtændʒəbl/,Vô hình
+20,Underlie,(v),/ˌʌndəˈlaɪ/,"Nằm dưới, làm nền tảng cho"
+21,Stigma,(n),/ˈstɪɡmə/,Sự kỳ thị
+22,Professionalism,(n),/prəˈfeʃənəlɪzəm/,Tính chuyên nghiệp
+23,agrarian,(adj),/əˈɡreəriən/,(thuộc về) nông nghiệp
+24,manufacturing techniques,(phrase),/ˌmænjuˈfæktʃərɪŋ tekˈniːks/,Kỹ thuật sản xuất/chế tạo
+25,in mass quantities,(phrase),/ɪn mæs ˈkwɒntətiz/,Với số lượng lớn
+26,pump,"(v, n)",/pʌmp/,Bơm; máy bơm
+27,adapt,(v),/əˈdæpt/,"Thích nghi, điều chỉnh"
+28,the forward and backward,(phrase),/ðə ˈfɔːwəd ænd ˈbækwəd/,Chuyển động tới lui
+29,the gear mechanism,(phrase),/ðə ɡɪə ˈmekənɪzəm/,Cơ cấu/cơ chế bánh răng
+30,rotary motion,(phrase),/ˈrəʊtəri ˈməʊʃn/,Chuyển động quay tròn
+31,relatively,(adv),/ˈrelətɪvli/,Tương đối
+32,locomotive,(n),/ˌləʊkəˈməʊtɪv/,Đầu máy (xe lửa)
+33,spinner,(n),/ˈspɪnə(r)/,Thợ kéo sợi; máy kéo sợi
+34,weaver,(n),/ˈwiːvə(r)/,Thợ dệt
+35,thread,(n),/θred/,"Sợi chỉ, sợi tơ"
+36,mechanise (mechanize),(v),/ˈmekənaɪz/,Cơ giới hóa
+37,undergo,(v),/ˌʌndəˈɡəʊ/,"Trải qua, chịu đựng"
+38,adopt,(v),/əˈdɒpt/,"Áp dụng, chấp nhận"
+39,chief,(adj),/tʃiːf/,"Chính, chủ yếu, hàng đầu"
+40,iron ore,(n),/ˈaɪən ɔː(r)/,Quặng sắt
+41,charcoal,(n),/ˈtʃɑːkəʊl/,"Than củi, than gỗ"
+42,metals,(n),/ˈmetlz/,Kim loại
+43,enable,(v),/ɪˈneɪbl/,"Cho phép, làm cho có thể"
+44,steel,(n),/stiːl/,Thép
+45,in response to,(phrase),/ɪn rɪˈspɒns tu/,Để đáp lại
+46,communication,(n),/kəˌmjuːnɪˈkeɪʃn/,"Sự giao tiếp, truyền thông"
+47,communicate,(v),/kəˈmjuːnɪkeɪt/,"Giao tiếp, truyền đạt"
+48,immense,(adj),/ɪˈmens/,"To lớn, mênh mông, bao la"
+49,rural areas,(phrase),/ˈrʊərəl ˈeəriəz/,Vùng nông thôn
+50,accelerate,(v),/əkˈseləreɪt/,"Tăng tốc, thúc đẩy"
+51,dramatically,(adv),/drəˈmætɪkli/,"Một cách đáng kể, đột ngột"
+52,inadequate,(adj),/ɪnˈædɪkwət/,"Không đủ, thiếu"
+53,sanitation,(n),/ˌsænɪˈteɪʃn/,Hệ thống vệ sinh
+54,the middle and upper classes,(phrase),-,Tầng lớp trung lưu và thượng lưu
+55,struggle,"(v, n)",/ˈstrʌɡl/,Đấu tranh; cuộc đấu tranh
+56,along with,(phrase),/əˈlɒŋ wɪð/,Cùng với
+57,the pace of,(phrase),/ðə peɪs ɒv/,Nhịp độ của
+58,fuel,(v),/ˈfjuːəl/,"Thúc đẩy, tiếp nhiên liệu"
+59,opposition,(n),/ˌɒpəˈzɪʃn/,Sự phản đối
+60,industrialisation,(n),/ɪnˌdʌstriəlaɪˈzeɪʃn/,Sự công nghiệp hóa
+61,textile,"(n, adj)",/ˈtekstaɪl/,"Vải dệt, hàng dệt; (thuộc) ngành dệt"
+62,object to,(v),/əbˈdʒekt tu/,Phản đối
+63,mechanised looms,(phrase),/ˈmekənaɪzd luːmz/,Khung cửi cơ giới hóa
+64,knitting frames,(phrase),/ˈnɪtɪŋ freɪmz/,Khung dệt kim
+65,craft,(n),/krɑːft/,Nghề thủ công
+66,livelihood,(n),/ˈlaɪvlihʊd/,Kế sinh nhai
+67,rob,(v),/rɒb/,"Cướp, tước đoạt"
+68,desperate,(adj),/ˈdespərət/,"Tuyệt vọng, liều lĩnh"
+69,smash,(v),/smæʃ/,Đập tan
+70,apprentice,(n),/əˈprentɪs/,Người học việc
+71,rumour (rumor),(n),/ˈruːmə(r)/,Tin đồn
+72,wreck,(v),/rek/,"Phá hủy, làm hỏng"
+73,take place,(phrase),/teɪk pleɪs/,"Diễn ra, xảy ra"
+74,spread across,(phrase),/spred əˈkrɒs/,Lan rộng khắp
+75,attack,"(v, n)",/əˈtæk/,Tấn công; cuộc tấn công
+76,exchange,"(n, v)",/ɪksˈtʃeɪndʒ/,Sự trao đổi; trao đổi (khi đi với gunfire nghĩa là cuộc đấu súng)
+77,gunfire,(n),/ˈɡʌnfaɪə(r)/,"Tiếng súng, cuộc đấu súng"
+78,guard,"(n, v)",/ɡɑːd/,"Lính gác, người bảo vệ; canh gác"
+79,soldier,(n),/ˈsəʊldʒə(r)/,Người lính
+80,punishable,(adj),/ˈpʌnɪʃəbl/,"Có thể bị trừng phạt, đáng bị phạt"
+81,unrest,(n),/ʌnˈrest/,"Tình trạng bất ổn, náo động"
+82,mill,(n),/mɪl/,"Nhà máy (dệt, xay xát), xưởng"
+83,in the days that followed,(phrase),-,Trong những ngày tiếp theo
+84,arrest,"(v, n)",/əˈrest/,Bắt giữ; vụ bắt giữ
+85,resistance,(n),/rɪˈzɪstəns/,"Sự kháng cự, sự chống cự"
+86,vanish,(v),/ˈvænɪʃ/,"Biến mất, tan biến"
+87,Brick by brick,(phrase),/brɪk baɪ brɪk/,"Từng viên gạch một, từ từ và kiên định"
+88,magical,(adj),/ˈmædʒɪkl/,"Kì diệu, có phép thuật"
+89,fairy-tale,(n),/ˈfeəri teɪl/,Truyện cổ tích
+90,turret,(n),/ˈtʌrɪt/,Tháp nhỏ (trên lâu đài)
+91,fire-breathing,(adj),/ˈfaɪə briːðɪŋ/,Phun ra lửa
+92,wicked,(adj),/ˈwɪkɪd/,"Xấu xa, độc ác"
+93,witch,(n),/wɪtʃ/,Phù thủy
+94,gallant,(adj),/ˈɡælənt/,"Dũng cảm, hào hiệp"
+95,enchant,(v),/ɪnˈtʃɑːnt/,"Bỏ bùa, làm say mê"
+96,be aware of,(phrase),/bi əˈweər ɒv/,"Nhận thức về, ý thức về"
+97,fantasy,(n),/ˈfæntəsi/,"Sự tưởng tượng, ảo mộng"
+98,repercussion,(n),/ˌriːpəˈkʌʃn/,"Hậu quả, ảnh hưởng (thường là tiêu cực)"
+99,abandon,(v),/əˈbændən/,"Từ bỏ, ruồng bỏ"
+100,pretence (pretense),(n),/prɪˈtens/,"Sự giả vờ, giả bộ"
+101,tire,(v),/ˈtaɪə(r)/,"Làm cho mệt mỏi, trở nên mệt mỏi"
+102,settle down,(phr v),/ˈsetl daʊn/,Ổn định cuộc sống
+103,take turns with,(phrase),/teɪk tɜːnz wɪð/,Thay phiên nhau
+104,faculty,(n),/ˈfæklti/,"Khả năng, năng lực (trí tuệ, thể chất)"
+105,underpin,(v),/ˌʌndəˈpɪn/,"Làm nền tảng, củng cố"
+106,problem-solving,(n),/ˈprɒbləm sɒlvɪŋ/,Việc giải quyết vấn đề
+107,adaptable,(adj),/əˈdæptəbl/,Dễ thích nghi
+108,millennia,(n),/mɪˈleniə/,Thiên niên kỷ
+109,philosopher,(n),/fəˈlɒsəfə(r)/,Nhà triết học
+110,extoll (extol),(v),/ɪkˈstəʊl/,"Tán dương, ca tụng"
+111,virtue,(n),/ˈvɜːtʃuː/,"Đức tính tốt, đức hạnh"
+112,play-based learning,(phrase),/pleɪ beɪst ˈlɜːnɪŋ/,Học tập thông qua trò chơi
+113,increasingly,(adv),/ɪnˈkriːsɪŋli/,Ngày càng
+114,scarce,(adj),/skeəs/,Khan hiếm
+115,curtail,(v),/kəˈteɪl/,"Cắt giảm, hạn chế"
+116,victim,(n),/ˈvɪktɪm/,Nạn nhân
+117,competition,(n),/ˌkɒmpəˈtɪʃn/,"Sự cạnh tranh, cuộc thi"
+118,concern,(n),/kənˈsɜːn/,"Mối quan tâm, sự lo lắng"
+119,implication,(n),/ˌɪmplɪˈkeɪʃn/,"Hàm ý, ảnh hưởng"
+120,child-initiated,(adj),/tʃaɪld ɪˈnɪʃieɪtɪd/,Do trẻ em khởi xướng
+121,spontaneous,(adj),/spɒnˈteɪniəs/,"Tự phát, tự nhiên"
+122,unpredictable,(adj),/ˌʌnprɪˈdɪktəbl/,Không thể đoán trước
+123,intervene,(v),/ˌɪntəˈviːn/,Can thiệp
+124,puzzle,(n),/ˈpʌzl/,"Câu đố, trò chơi xếp hình"
+125,possibility,(n),/ˌpɒsəˈbɪləti/,Khả năng (có thể xảy ra)
+126,awareness,(n),/əˈweənəs/,Sự nhận thức
+127,undertake,(v),/ˌʌndəˈteɪk/,"Đảm nhận, thực hiện"
+128,carry out,(phr v),/ˈkæri aʊt/,"Tiến hành, thực hiện"
+129,pre-schooler,(n),/ˈpriː skuːlə(r)/,Trẻ mẫu giáo
+130,unfamiliar,(adj),/ˌʌnfəˈmɪliə(r)/,Không quen thuộc
+131,requiring scientific reasoning,(phrase),-,Đòi hỏi sự lập luận khoa học
+132,facilitate,(v),/fəˈsɪlɪteɪt/,"Tạo điều kiện, làm cho dễ dàng hơn"
+133,extremely,(adv),/ɪkˈstriːmli/,"Cực kỳ, vô cùng"
+134,self-regulate,(v),/self ˈreɡjuleɪt/,Tự điều chỉnh
+135,indicator,(n),/ˈɪndɪkeɪtə(r)/,"Chỉ số, dấu hiệu"
+136,investigate,(v),/ɪnˈvestɪɡeɪt/,Điều tra
+137,observe,(v),/əbˈzɜːv/,Quan sát
+138,diagnosis,(n),/ˌdaɪəɡˈnəʊsɪs/,Sự chẩn đoán
+139,neurodevelopmental disorder,(phrase),-,Rối loạn phát triển thần kinh
+140,play-based approach,(phrase),-,Phương pháp tiếp cận dựa trên trò chơi
+141,stimulus,(n),/ˈstɪmjələs/,Sự kích thích
+142,playful,(adj),/ˈpleɪfl/,"Vui tươi, ham chơi"
+143,comment,"(n, v)",/ˈkɒment/,Lời bình luận; bình luận
+144,backwater,(n),/ˈbækwɔːtə(r)/,"Nơi tù túng, hẻo lánh, kém phát triển"
+145,untroubled,(adj),/ʌnˈtrʌbld/,"Yên bình, không bị làm phiền"
+146,debate,"(n, v)",/dɪˈbeɪt/,Cuộc tranh luận; tranh luận
+147,trivial,(adj),/ˈtrɪviəl/,"Tầm thường, không quan trọng"
+148,contrast,"(n, v)","/ˈkɒntrɑːst/, /kənˈtrɑːst/",Sự tương phản; làm tương phản
+149,bike-sharing scheme,(phrase),/baɪk ˈʃeərɪŋ skiːm/,Kế hoạch/hệ thống chia sẻ xe đạp
+150,come up with,(phr v),/kʌm ʌp wɪð/,"Nghĩ ra, nảy ra (ý tưởng)"
+151,perceive,(v),/pəˈsiːv/,"Nhận thức, xem xét"
+152,thread of,(phrase),/θred ɒv/,"Mạch (suy nghĩ), dòng (sự kiện)"
+153,consumerism,(n),/kənˈsjuːmərɪzəm/,Chủ nghĩa tiêu dùng
+154,paint,(v),/peɪnt/,"Sơn, vẽ"
+155,distribute,(v),/dɪˈstrɪbjuːt/,Phân phát
+156,leaflet,(n),/ˈliːflət/,Tờ rơi
+157,heavily,(adv),/ˈhevɪli/,"Nặng nề, rất nhiều"
+158,recall,(v),/rɪˈkɔːl/,"Nhớ lại, gọi về"
+159,particularly,(adv),/pəˈtɪkjələli/,Đặc biệt là
+160,publicise (publicize),(v),/ˈpʌblɪsaɪz/,"Công khai, quảng bá"
+161,symbolic,(adj),/sɪmˈbɒlɪk/,Tượng trưng
+162,seize the opportunity to,(phrase),-,Nắm bắt cơ hội để
+163,elaborate,"(v, adj)","/ɪˈlæbəreɪt/, /ɪˈlæbərət/","Diễn giải chi tiết; tỉ mỉ, phức tạp"
+164,municipality,(n),/mjuːˌnɪsɪˈpæləti/,"Chính quyền thành phố, đô thị"
+165,calculations,(n),/ˌkælkjuˈleɪʃnz/,Sự tính toán
+166,turned out,(phr v),/tɜːnd aʊt/,"Hóa ra, thành ra"
+167,unanimously,(adv),/juˈnænɪməsli/,"Nhất trí, đồng lòng"
+168,reject,(v),/rɪˈdʒekt/,"Bác bỏ, từ chối"
+169,belong to,(phr v),/bɪˈlɒŋ tu/,Thuộc về
+170,glorious,(adj),/ˈɡlɔːriəs/,"Huy hoàng, rực rỡ"
+171,discourage,(v),/dɪsˈkʌrɪdʒ/,Làm nản lòng
+172,ask for,(phr v),/ɑːsk fɔː(r)/,"Yêu cầu, xin"
+173,deposit,"(n, v)",/dɪˈpɒzɪt/,Tiền đặt cọc; đặt cọc
+174,drop,(v),/drɒp/,"Rơi, thả; từ bỏ (kế hoạch)"
+175,conscious,(adj),/ˈkɒnʃəs/,"Có ý thức, nhận biết được"
+176,prove,(v),/pruːv/,Chứng minh
+177,launch,(v),/lɔːntʃ/,"Ra mắt, khởi động, tung ra"
+178,no longer,(phrase),/nəʊ ˈlɒŋɡə(r)/,Không còn nữa
+179,guilder,(n),/ˈɡɪldə(r)/,Đồng Guilder (tiền Hà Lan cũ)
+180,conspicuous,(adj),/kənˈspɪkjuəs/,"Dễ thấy, nổi bật"
+181,sturdy,(adj),/ˈstɜːdi/,"Cứng cáp, vững chắc"
+182,rack,(n),/ræk/,"Giá, kệ (để đồ)"
+183,the chip card,(phrase),/ðə tʃɪp kɑːd/,Thẻ chip
+184,the bike rack,(phrase),/ðə baɪk ræk/,Giá để xe đạp
+185,prone,(adj),/prəʊn/,"Dễ bị, có khuynh hướng bị (điều gì xấu)"
+186,vandalism,(n),/ˈvændəlɪzəm/,Hành vi phá hoại của công
+187,theft,(n),/θeft/,Sự trộm cắp
+188,instantly,(adv),/ˈɪnstəntli/,Ngay lập tức
+189,recognise (recognize),(v),/ˈrekəɡnaɪz/,Nhận ra
+190,blow,(n),/bləʊ/,"Cú giáng, cú sốc"
+191,abolish,(v),/əˈbɒlɪʃ/,"Bãi bỏ, hủy bỏ"
+192,profitable,(adj),/ˈprɒfɪtəbl/,Có lợi nhuận
+193,pivotal,(adj),/ˈpɪvətl/,"Then chốt, chủ chốt"
+194,disappoint,(v),/ˌdɪsəˈpɔɪnt/,Làm thất vọng
+195,corporation,(n),/ˌkɔːpəˈreɪʃn/,"Tập đoàn, công ty lớn"
+196,boast,(v),/bəʊst/,"Khoe khoang, tự hào về"
+197,inspire,(v),/ɪnˈspaɪə(r)/,Truyền cảm hứng
+198,set up,(phr v),/set ʌp/,"Thành lập, thiết lập"
+199,financially,(adv),/faɪˈnænʃəli/,Về mặt tài chính
+200,file,(v),/faɪl/,"Nộp (đơn), đệ trình"
+201,patent,"(n, v)",/ˈpætnt/,Bằng sáng chế; cấp bằng sáng chế
+202,regard,"(v, n)",/rɪˈɡɑːd/,"Coi như, xem như; sự quan tâm"
+203,underground,"(adj, n)",/ˈʌndəɡraʊnd/,Dưới lòng đất; ngầm
+204,destination,(n),/ˌdestɪˈneɪʃn/,Điểm đến
+205,optimistic,(adj),/ˌɒptɪˈmɪstɪk/,Lạc quan
+206,mentality,(n),/menˈtæləti/,"Tâm lý, tư duy"
+207,dominate,(v),/ˈdɒmɪneɪt/,"Thống trị, chiếm ưu thế"
+208,propose,(v),/prəˈpəʊz/,Đề xuất
+209,intend,(v),/ɪnˈtend/,Có ý định
+210,initially,(adv),/ɪˈnɪʃəli/,Ban đầu
+211,withdraw,(v),/wɪðˈdrɔː/,"Rút lui, rút khỏi"
+212,attitude,(n),/ˈætɪtjuːd/,Thái độ
+213,majority,(n),/məˈdʒɒrəti/,Đa số
+214,resident,(n),/ˈrezɪdənt/,Cư dân
+215,likelihood,(n),/ˈlaɪklihʊd/,Khả năng (sẽ xảy ra)
+216,reputation,(n),/ˌrepjuˈteɪʃn/,Danh tiếng
+217,hand out,(phr v),/hænd aʊt/,Phân phát
+218,condemn,(v),/kənˈdem/,"Lên án, chỉ trích"
+219,get off the ground,,,bắt đầu triển khai
+220,seize this opportunity to ,,,năm bắt cơ hội
+221,Divergent,adj,/daɪˈvɜː.dʒənt/,"Khác nhau, bất đồng, phân kỳ"
+222,Cardiovascular,adj,/ˌkɑː.di.əʊˈvæs.kjə.lər/,(thuộc) Tim mạch
+223,Osteoarthritis,n,/ˌɒs.ti.əʊ.ɑːˈθraɪ.tɪs/,"Thoái hóa khớp, viêm xương khớp"
+224,Conducive,adj,/kənˈdʒuː.sɪv/,"Có lợi, thuận lợi, có ích (cho việc gì)"
+225,Rendering,n,/ˈren.dər.ɪŋ/,"Sự kết xuất (hình ảnh), sự diễn tả"
+226,Futile,adj,/ˈfjuː.taɪl/,"Vô ích, không hiệu quả, phù phiếm"
+227,Imperil,v,/ɪmˈper.ɪl/,"Gây nguy hiểm, đẩy vào tình thế nguy hiểm"
+228,Caprices,n (plural),/kəˈpriː.sɪz/,"(Những) sự thất thường, ý thích bất chợt"
+229,Transformation,n,/ˌtræns.fəˈmeɪ.ʃən/,"Sự thay đổi, sự biến đổi (thường là lớn và tích cực)"
+230,Modification,n,/ˌmɒd.ɪ.fɪˈkeɪ.ʃən/,"Sự sửa đổi, sự điều chỉnh"
+231,Customisation,n,/ˌkʌs.tə.maɪˈzeɪ.ʃən/,Sự tùy chỉnh (làm theo yêu cầu riêng)
+232,Specification,n,/ˌspes.ɪ.fɪˈkeɪ.ʃənz/,"Các thông số kỹ thuật, đặc điểm kỹ thuật"
+233,Elite,n,/iˈliːt/,"Giới tinh hoa, nhóm người xuất sắc nhất"
+234,Significance,n,/sɪɡˈnɪf.ɪ.kəns/,"Tầm quan trọng, ý nghĩa"
+235,Tension,n,/ˈten.ʃən/,Độ căng (của dây vợt)
+236,Synthetic,n,/sɪnˈθet.ɪks/,Các vật liệu tổng hợp
+237,Additive,n,/ˈæd.ɪ.tɪvz/,Chất phụ gia
+238,Preference,n,/ˈpref.ər.ən.sɪz/,"Sở thích cá nhân, sự ưa chuộng"
+239,Gut,n,/ɡʌt/,Ruột (động vật)
+240,Underestimate,v,/ˌʌn.dəˈres.tɪ.meɪt/,Đánh giá thấp
+241,Tweak,v,/twiːk/,"Tinh chỉnh, điều chỉnh nhỏ"
+242,Maximise,v,/ˈmæk.sɪ.maɪz/,Tối đa hóa
+243,Generate,v,/ˈdʒen.ə.reɪt/,"Tạo ra, sản sinh ra"
+244,Ban,v,/bæn/,Cấm
+245,Experiment,v,/ɪkˈsper.ɪ.ment/,Thử nghiệm
+246,Enhance,v,/ɪnˈhɑːns/,"Nâng cao, cải thiện"
+247,Revolutionise,v,/ˌrev.əˈluː.ʃə.naɪz/,"Cách mạng hóa, thay đổi hoàn toàn"
+248,Attribute to,phr. v.,/əˈtrɪb.juːt tuː/,"Quy cho, cho là do"
+249,Anticipate,v,/ænˈtɪs.ɪ.peɪt/,"Lường trước, dự đoán"
+250,Mould,v,/məʊld/,"Đúc, tạo khuôn"
+251,Indicate,v,/ˈɪn.dɪ.keɪt/,"Chỉ ra, cho thấy"
+252,Incredible,adj,/ɪnˈkred.ə.bəl/,"Khó tin, phi thường"
+253,Remarkable,adj,/rɪˈmɑː.kə.bəl/,"Đáng chú ý, xuất sắc"
+254,Subtle,adj,/ˈsʌt.əl/,"Tinh tế, khó nhận thấy"
+255,Visible,adj,/ˈvɪz.ə.bəl/,"Có thể nhìn thấy, rõ ràng"
+256,Publicised,adj,/ˈpʌb.lɪ.saɪzd/,Được công bố rộng rãi
+257,Valuable,adj,/ˈvæl.jə.bəl/,"Có giá trị, quý giá"
+258,Particular,adj,/pəˈtɪk.jə.lər/,"Kỹ tính, cầu kỳ, đặc biệt"
+259,Thorough,adj,/ˈθʌr.ə/,"Kỹ lưỡng, cẩn thận"
+260,Denser,adj,/ˈden.sər/,Dày đặc hơn
+261,Primary,adj,/ˈpraɪ.mər.i/,"Chính, chủ yếu"
+262,Durable,adj,/ˈdʒʊə.rə.bəl/,"Bền, có độ bền cao"
+263,Climatic,adj,/klaɪˈmæt.ɪk/,Thuộc về khí hậu
+264,The likes of,phrase,/ðə laɪks ɒv/,"Những người/thứ tương tự như, chẳng hạn như."
+265,To name just a few,idiom,/tə neɪm dʒəst ə fjuː/,(Để) kể ra một vài ví dụ.
+266,Pass more or less unnoticed,idiom,/pɑːs mɔːr ɔː les ˌʌnˈnəʊ.tɪst/,Gần như không được chú ý đến.
+267,Readily available,adj phr,/ˈred.ɪ.li əˈveɪ.lə.bəl/,"Có sẵn, dễ dàng tìm thấy hoặc mua được."
+268,The line between winning and losing becomes thinner,idiom,/... bɪˈtwiːn ˈwɪn.ɪŋ ænd ˈluː.zɪŋ bɪˈkʌmz ˈθɪn.ər/,Ranh giới giữa thắng và thua ngày càng mong manh.
+269,Competitive advantage,n phr,/kəmˌpet.ə.tɪv ədˈvɑːn.tɪdʒ/,Lợi thế cạnh tranh.
+270,Date back to,phr. v.,/deɪt bæk tuː/,"Có từ thời, bắt nguồn từ."
+271,By far,idiom,/baɪ fɑː(r)/,"Hơn hẳn, cho đến nay."
+272,A perfect fit for,phrase,/ə ˈpɜː.fekt fɪt fɔː(r)/,Một sự phù hợp hoàn hảo cho.
+273,Battle it out,idiom,/ˈbæt.əl ɪt aʊt/,Tranh đấu quyết liệt.
+274,Go beyond,phr. v.,/ɡəʊ bɪˈjɒnd/,"Vượt ra ngoài, không chỉ dừng lại ở."
+275,Misfit,n,/ˈmɪs.fɪts/,"kẻ lập dị, không phù hợp với xã hội."
+276,Daredevil,n,/ˈdeəˌdev.əlz/,"người liều lĩnh, táo bạo."
+277,Swashbuckler,n,/ˈswɒʃˌbʌk.ləz/,"kẻ phiêu lưu, ưa mạo hiểm."
+278,Pursuer,n,/pəˈsjuː.əz/, người truy đuổi.
+279,Might,n,/maɪt/,"Sức mạnh, quyền lực to lớn."
+280,Fleet,n,/fliːt/,Hạm đội.
+281,Reign,n,/reɪn/,"Triều đại, thời gian trị vì."
+282,Civilisation,n,/ˌsɪv.əl.aɪˈzeɪ.ʃən/,Nền văn minh.
+283,Inhabitant,n,/ɪnˈhæb.ɪ.tənts/,Cư dân
+284,Hardship,n,/ˈhɑːd.ʃɪps/,"Sự gian khổ, khó khăn."
+285,Coves,n,/kəʊvz/,"Các vịnh nhỏ, vũng kín."
+286,Retaliation,n,/rɪˌtæl.iˈeɪ.ʃən/,"Sự trả đũa, trả thù."
+287,Opponent,n,/əˈpəʊ.nənts/,Đối thủ.
+288,Correspondence,n,/ˌkɒr.əˈspɒn.dəns/,Thư từ liên lạc.
+289,Disruption,n,/dɪsˈrʌp.ʃən/,"Sự gián đoạn, sự phá vỡ."
+290,Commerce,n,/ˈkɒm.ɜːs/,"Thương mại, buôn bán."
+291,Orator,n,/ˈɒr.ə.tər/,Nhà hùng biện.
+292,Detour,n,/ˈdiː.tʊər/,Đường vòng.
+293,Culprit,n,/ˈkʌl.prɪts/,Thủ phạm.
+294,Dignitaries,n,/ˈdɪɡ.nɪ.tər.iz/,Các quan chức cấp cao.
+295,Ransom,n,/ˈræn.səm/,Tiền chuộc.
+296,Menace,n,/ˈmen.əs/,Mối đe dọa.
+297,Prowl,v,/praʊl/,"Lảng vảng, rình mò."
+298,Raid,v,/reɪd/,"Đột kích, cướp phá."
+299,Eradicate,v,/ɪˈræd.ɪ.keɪt/,"Triệt hạ, xóa sổ hoàn toàn."
+300,Predate,v,/ˌpriːˈdeɪt/,"Có trước, tồn tại trước."
+301,Possess,v,/pəˈzes/,Sở hữu.
+302,Surrender,v,/səˈren.dər/,Đầu hàng.
+303,Resort to,phr. v.,/rɪˈzɔːt tuː/,Phải dùng đến (một biện pháp cuối cùng).
+304,Boost,v,/buːst/,"Thúc đẩy, tăng cường."
+305,Assure,v,/əˈʃɔː(r)/,"Cam đoan, trấn an."
+306,Condone,v,/kənˈdəʊn/,"Bỏ qua, dung túng (cho hành vi sai trái)."
+307,Praise,v,/preɪz/,"Ca ngợi, tán dương."
+308,Glorify,v,/ˈɡlɔː.rɪ.faɪ/,"Tôn vinh, ca tụng."
+309,Hamper,v,/ˈhæm.pər/,"Cản trở, gây khó khăn."
+310,Profit from,phr. v.,/ˈprɒf.ɪt frɒm/,Hưởng lợi từ.
+311,Embolden,v,/ɪmˈbəʊl.dən/,"Cổ vũ, làm cho bạo dạn hơn."
+312,Kidnap,v,/ˈkɪd.næp/,Bắt cóc.
+313,Outlive,v,/ˌaʊtˈlɪv/,"Sống lâu hơn; hoặc trở nên lỗi thời, hết giá trị."
+314,Grant,v,/ɡrɑːnt/,"Ban cho, cấp cho."
+315,Combat,v,/ˈkɒm.bæt/,"Chiến đấu, chống lại."
+316,Assign,v,/əˈsaɪn/,"Phân công, chỉ định."
+317,Cleanse,v,/klenz/,"Dọn sạch, thanh trừng."
+318,Vital,adj,/ˈvaɪ.təl/,"Tối quan trọng, thiết yếu."
+319,Fertile,adj,/ˈfɜː.taɪl/,"Màu mỡ, phì nhiêu."
+320,Rugged,adj,/ˈrʌɡ.ɪd/,"Gồ ghề, hiểm trở."
+321,Unsurpassed,adj,/ˌʌn.səˈpɑːst/,"Vô song, không gì sánh bằng."
+322,Navigable,adj,/ˈnæv.ɪ.ɡə.bəl/,Có thể đi lại được bằng tàu thuyền.
+323,Substantial,adj,/səbˈstæn.ʃəl/,"Đáng kể, lớn lao."
+324,Liberal,adj,/ˈlɪb.ər.əl/,"Phóng khoáng, rộng rãi."
+325,Prominent,adj,/ˈprɒm.ɪ.nənt/,"Nổi bật, lỗi lạc."
+326,Concerted,adj,/kənˈsɜː.tɪd/,"Có phối hợp, đồng lòng."
+327,Vast,adj,/vɑːst/,"Rộng lớn, mênh mông."
+328,Spring to mind,idiom,/sprɪŋ tə maɪnd/,"Nảy ra trong đầu, hiện lên trong tâm trí."
+329,In command of,phrase,/ɪn kəˈmɑːnd ɒv/,"Chỉ huy, điều khiển."
+330,Spread fear across,phrase,/spred fɪər əˈkrɒs/,Gieo rắc nỗi sợ hãi khắp nơi.
+331,Rely heavily on,phrase,/rɪˈlaɪ ˈhev.ɪ.li ɒn/,Phụ thuộc nặng nề vào.
+332,Turn to (piracy),phr. v.,/tɜːn tuː/,Chuyển sang (làm cướp biển).
+333,Strike undetected,phrase,/straɪk ˌʌn.dɪˈtek.tɪd/,Tấn công mà không bị phát hiện.
+334,Caught in a trap,idiom,/kɔːt ɪn ə træp/,Bị mắc bẫy.
+335,In return,phrase,/ɪn rɪˈtɜːn/,Để đáp lại.
+336,Outlive one's usefulness,idiom,/... wʌnz ˈjuːs.fəl.nəs/,"Hết giá trị sử dụng, không còn hữu ích nữa."
+337,At the hands of,idiom,/æt ðə hændz ɒv/,Dưới tay của (ai đó).
+338,reap greater benefits,v.p,/riːp ˈɡreɪtər ˈbɛnɪfɪts/,gặt hái/thu được nhiều lợi ích hơn
+339,uphold morals and values in a community,v.p,/ʌpˈhoʊld ˈmɔːrəlz ənd ˈvæljuːz ɪn ə kəˈmjuːnəti/,giữ gìn/đề cao đạo đức và các giá trị trong cộng đồng
+340,contribute free labor to...,v.p,/kənˈtrɪbjuːt friː ˈleɪbər tuː.../,đóng góp lao động miễn phí cho...
+341,seek employment,v.p,/siːk ɪmˈplɔɪmənt/,tìm kiếm việc làm
+342,puts greater pressure on...,v.p,/pʊts ˈɡreɪtər ˈprɛʃər ɒn.../,gây áp lực lớn hơn lên...
+343,demographic shift,n.p,/ˌdɛməˈɡræfɪk ʃɪft/,sự chuyển dịch nhân khẩu học
+344,dependency ratio,n.p,/dɪˈpɛndənsi ˈreɪʃiˌoʊ/,tỷ lệ phụ thuộc
+345,strain on public finances,n.p,/streɪn ɒn ˈpʌblɪk ˈfaɪnænsɪz/,gánh nặng cho tài chính công
+346,pension burden,n.p,/ˈpɛnʃən ˈbɜːrdn/,gánh nặng lương hưu
+347,shrinking workforce,n.p,/ˈʃrɪŋkɪŋ ˈwɜːrkfɔːrs/,lực lượng lao động bị thu hẹp
+348,intergenerational equity,n.p,/ˌɪntərˌdʒɛnəˈreɪʃənəl ˈɛkwəti/,công bằng giữa các thế hệ
+349,socioeconomic implications,n.p,/ˌsoʊsioʊˌɛkəˈnɒmɪk ˌɪmplɪˈkeɪʃənz/,hệ lụy kinh tế-xã hội
+350,accumulated wealth,n.p,/əˈkjuːmjəˌleɪtɪd wɛlθ/,tài sản tích lũy
+351,disposable income,n.p,/dɪˈspoʊzəbl ˈɪnkʌm/,thu nhập khả dụng
+352,experienced workforce,n.p,/ɪkˈspɪəriənst ˈwɜːrkfɔːrs/,lực lượng lao động giàu kinh nghiệm
+353,proactive policies,n.p,/proʊˈæktɪv ˈpɒləsiz/,chính sách chủ động
+354,a double-edged sword,idiom,/ə ˈdʌbəl-ɛdʒd sɔːrd/,con dao hai lưỡi
+355,to harness the potential of,v.p,/tə ˈhɑːrnəs ðə pəˈtɛnʃəl ʌv.../,khai thác tiềm năng của...
+356,a burgeoning market,n.p,/ə ˈbɜːrdʒənɪŋ ˈmɑːrkɪt/,một thị trường đang phát triển nhanh
+357,the grey pound,n.p,/ðə ɡreɪ paʊnd/,sức mua của người cao tuổi
+358,caregiving burden,n.p,/ˈkɛərˌɡɪvɪŋ ˈbɜːrdn/,gánh nặng chăm sóc
+359,to mitigate the negative effects,v.p,/tə ˈmɪtɪˌɡeɪt ðə ˈnɛɡətɪv ɪˈfɛkts/,giảm thiểu các tác động tiêu cực
+360,lifelong learning,n.p,/ˈlaɪflɔːŋ ˈlɜːrnɪŋ/,học tập suốt đời
+361,aroma,n.,/əˈroʊmə/,"mùi thơm, hương thơm"
+362,beverage,n.,/ˈbɛvərɪdʒ/,đồ uống
+363,cluster,n.,/ˈklʌstər/,"cụm, bó, đàn, bầy"
+364,combine,v.,/kəmˈbaɪn/,"kết hợp, phối hợp"
+365,condensed,adj.,/kənˈdɛnst/,"cô đặc, đăc lại"
+366,contemporary,adj.,/kənˈtɛmpəˌrɛri/,"đương đại, đương thời"
+367,cultivate,v.,/ˈkʌltɪˌveɪt/,"trồng trọt, trau dồi"
+368,divine,adj.,/dɪˈvaɪn/,"thần thánh, thiêng liêng"
+369,humid,adj.,/ˈhjuːmɪd/,"ẩm, ẩm ướt"
+370,odor,n.,/ˈoʊdər/,"mùi, mùi hôi"
+371,palate,n.,/ˈpælɪt/,"vòm miệng, khẩu vị"
+372,paradise,n.,/ˈpærəˌdaɪs/,thiên đường
+373,plantation,n.,/plænˈteɪʃən/,đồn điền
+374,rapid,adj.,/ˈræpɪd/,"nhanh, nhanh chóng"
+375,rate,n.,/reɪt/,"tốc độ, tỷ lệ"
+376,soothing,adj.,/ˈsuːðɪŋ/,"dịu dàng, êm dịu"
+377,texture,n.,/ˈtɛkstʃər/,"kết cấu, bề mặt"
+378,toxic,adj.,/ˈtɒksɪk/,"độc, độc hại"
+379,vary,v.,/ˈvɛəri/,"thay đổi, biến đổi"
+380,bring about,v.p,/brɪŋ əˈbaʊt/,"gây ra, mang lại"
+381,care about,v.p,/kɛər əˈbaʊt/,quan tâm đến
+382,do up,v.p,/duː ʌp/,"cài, thắt, trang trí, sửa chữa"
+383,get over,v.p,/ɡɛt ˈoʊvər/,"vượt qua, bình phục"
+384,give away,v.p,/ɡɪv əˈweɪ/,"cho đi, tiết lộ bí mật"
+385,hand in,v.p,/hænd ɪn/,"nộp, đệ trình"
+386,hold on,v.p,/hoʊld ɒn/,"giữ máy, chờ một chút, bám chặt"
+387,make out,v.p,/meɪk aʊt/,"nhìn ra, hiểu được, hôn nhau"
+388,put in for,v.p,/pʊt ɪn fɔːr/,"đòi hỏi, yêu sách, xin"
+389,run into,v.p,/rʌn ˈɪntuː/,tình cờ gặp
+390,set off,v.p,/sɛt ɔːf/,"khởi hành, bắt đầu một chuyến đi, gây nổ"
+391,stand out,v.p,/stænd aʊt/,nổi bật
+392,take over,v.p,/teɪk ˈoʊvər/,"tiếp quản, đảm nhận"
+393,turn down,v.p,/tɜːrn daʊn/,"từ chối, vặn nhỏ (âm thanh, nhiệt độ)"
+394,wrap up,v.p,/ræp ʌp/,"gói lại, kết thúc, mặc ấm"
+395,absorbing,adj.,/əbˈsɔːrbɪŋ/,"lôi cuốn, hấp dẫn"
+396,fatal,adj.,/ˈfeɪtəl/,"gây chết người, chí mạng"
+397,genuine,adj.,/ˈdʒɛnjuɪn/,"thật, chân thật, chính hãng"
+398,graceful,adj.,/ˈɡreɪsfəl/,"duyên dáng, uyển chuyển"
+399,horrible,adj.,/ˈhɔːrəbəl/,"kinh khủng, khủng khiếp"
+400,idle,adj.,/ˈaɪdəl/,"nhàn rỗi, lười biếng"
+401,innocent,adj.,/ˈɪnəsənt/,"vô tội, ngây thơ"
+402,judicious,adj.,/dʒuˈdɪʃəs/,"sáng suốt, khôn ngoan"
+403,mean,adj.,/miːn/,"keo kiệt, xấu tính"
+404,ordinary,adj.,/ˈɔːrdnˌɛri/,"bình thường, thông thường"
+405,painful,adj.,/ˈpeɪnfəl/,đau đớn
+406,praiseworthy,adj.,/ˈpreɪzˌwɜːrði/,đáng khen ngợi
+407,precise,adj.,/prɪˈsaɪs/,"chính xác, tỉ mỉ"
+408,puzzled,adj.,/ˈpʌzəld/,"bối rối, khó xử"
+409,admiral,n.,/ˈædmərəl/,đô đốc
+410,admonish,v.,/ædˈmɒnɪʃ/,"khiển trách, la rầy"
+411,arc,n.,/ɑːrk/,"hình cung, vòng cung"
+412,audible,adj.,/ˈɔːdəbəl/,có thể nghe thấy
+413,awesome,adj.,/ˈɔːsəm/,"tuyệt vời, đáng kinh ngạc"
+414,beware,v.,/bɪˈwɛər/,"cẩn thận, coi chừng"
+415,brag,v.,/bræɡ/,khoe khoang
+416,character,n.,/ˈkærəktər/,"tính cách, nhân vật"
+417,conscience,n.,/ˈkɒnʃəns/,lương tâm
+418,disagree,v.,/ˌdɪsəˈɡriː/,không đồng ý
+419,echo,v.,/ˈɛkoʊ/,"vang lại, dội lại"
+420,escape,v.,/ɪˈskeɪp/,trốn thoát
+421,eventual,adj.,/ɪˈvɛntʃuəl/,"cuối cùng, sau cùng"
+422,fiery,adj.,/ˈfaɪəri/,"bốc lửa, nảy lửa"
+423,flesh,n.,/flɛʃ/,"thịt, da thịt"
+424,grapefruit,n.,/ˈɡreɪpˌfruːt/,quả bưởi
+425,hay,n.,/heɪ/,cỏ khô
+426,hint,n.,/hɪnt/,lời gợi ý
+427,horrified,adj.,/ˈhɔːrəˌfaɪd/,"kinh hoàng, khiếp sợ"
+428,idiot,n.,/ˈɪdiət/,kẻ ngốc
+429,indirect,adj.,/ˌɪndəˈrɛkt/,gián tiếp
+430,kerosene,n.,/ˈkɛrəˌsiːn/,dầu hỏa
+431,loop,n.,/luːp/,"vòng lặp, cái khâu"
+432,middle,n.,/ˈmɪdəl/,"ở giữa, trung tâm"
+433,option,n.,/ˈɒpʃən/,sự lựa chọn
+434,paddle,n.,/ˈpædəl/,mái chèo
+435,pastime,n.,/ˈpæsˌtaɪm/,"trò tiêu khiển, thú vui"
+436,perfect,adj.,/ˈpɜːrfɪkt/,hoàn hảo
+437,pinpoint,v.,/ˈpɪnˌpɔɪnt/,xác định chính xác
+438,sour,adj.,/ˈsaʊər/,chua
+439,stake,n.,/steɪk/,"cái cọc, tiền cược"
+440,steward,n.,/ˈstjuːərd/,"người phục vụ (trên tàu, máy bay)"
+441,string,n.,/strɪŋ/,"dây, sợi dây"
+442,switch,v.,/swɪtʃ/,"chuyển đổi, công tắc"
+443,thorn,n.,/θɔːrn/,cái gai
+444,torment,v.,/tɔːrˈmɛnt/,"dằn vặt, làm đau khổ"
+445,abrupt,adj.,/əˈbrʌpt/,"đột ngột, bất ngờ"
+446,agony,n.,/ˈæɡəni/,sự đau đớn tột cùng
+447,assassin,n.,/əˈsæsɪn/,"kẻ ám sát, sát thủ"
+448,beard,n.,/bɪərd/,râu
+449,beast,n.,/biːst/,"quái vật, con thú"
+450,chapel,n.,/ˈtʃæpəl/,nhà nguyện`;
 
             // State variables
             let allVocab = [];
@@ -537,7 +778,7 @@
                     startBtn.disabled = true;
                     document.querySelector('button[data-tab="quiz"]').disabled = false;
                     
-                    generateRandomQuiz(200);
+                    generateRandomQuiz(150); // Lấy 150 từ ngẫu nhiên
                     loadQuiz();
                     
                     showTab('quiz');
@@ -564,4 +805,3 @@
     </script>
 </body>
 </html>
-
