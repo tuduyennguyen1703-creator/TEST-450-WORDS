@@ -7,14 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- CÁC THƯ VIỆN JAVASCRIPT CẦN THIẾT CHO VIỆC XUẤT FILE -->
-    <!-- 1. Thư viện jsPDF để xuất file PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- 2. Thư viện FileSaver để lưu file (hỗ trợ cho Word) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <!-- 3. Thư viện docx để tạo và xuất file Word -->
-    <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
-    <!-- 4. Thư viện SheetJS (xlsx) để tạo và xuất file Excel -->
+    <!-- Thư viện SheetJS (xlsx) để tạo và xuất file Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     
     <style>
@@ -67,8 +60,6 @@
                     <div class="mt-8 flex flex-wrap justify-center items-center gap-4">
                         <button id="retakeBtn" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-transform transform hover:scale-105">Làm lại</button>
                         <button id="reviewAnswersBtn" class="w-full sm:w-auto bg-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-600 transition-transform transform hover:scale-105">Xem đáp án</button>
-                        <button id="exportPdfBtn" class="w-full sm:w-auto bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-transform transform hover:scale-105">Xuất PDF</button>
-                        <button id="exportDocxBtn" class="w-full sm:w-auto bg-sky-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-700 transition-transform transform hover:scale-105">Xuất Word</button>
                         <button id="exportXlsxBtn" class="w-full sm:w-auto bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-700 transition-transform transform hover:scale-105">Xuất Excel</button>
                     </div>
                 </div>
@@ -87,10 +78,6 @@
     </div>
 
     <script>
-        // LƯU Ý QUAN TRỌNG: KHÔNG XÓA HOẶC RÚT GỌN CHUỖI DỮ LIỆU FONT DƯỚI ĐÂY
-        // Đây là dữ liệu font Roboto đầy đủ (dạng base64) để nhúng vào PDF, đảm bảo hiển thị tiếng Việt chính xác.
-        const robotoFontBase64 = 'AAEAAAARAQAABAAQRFNJRwAAAAAAA...'; // Dữ liệu font rất dài, đã được nhúng đầy đủ trong phiên bản bạn nhận được.
-
         document.addEventListener('DOMContentLoaded', () => {
              // DỮ LIỆU TỪ VỰNG (ĐÃ XÓA PHIÊN ÂM)
             const vocabularyCSV = `1,Tune,(v),,"Theo dõi, điều chỉnh"
@@ -560,8 +547,6 @@
                 resultContent: document.getElementById('result-content'),
                 reviewAnswersBtn: document.getElementById('reviewAnswersBtn'),
                 retakeBtn: document.getElementById('retakeBtn'),
-                exportPdfBtn: document.getElementById('exportPdfBtn'),
-                exportDocxBtn: document.getElementById('exportDocxBtn'),
                 exportXlsxBtn: document.getElementById('exportXlsxBtn'),
                 timerElement: document.getElementById('timer')
             };
@@ -686,83 +671,7 @@
                 dom.historyContainer.innerHTML = `<table class="min-w-full bg-white border rounded-lg"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tên</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Điểm số</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ngày</th></tr></thead><tbody class="divide-y">${history.map(item => `<tr><td class="px-6 py-4">${item.name}</td><td class="px-6 py-4 font-semibold">${item.score} / ${item.total}</td><td class="px-6 py-4">${item.date}</td></tr>`).join('')}</tbody></table>`;
             };
 
-            // --- EXPORT FUNCTIONS ---
-            const exportPdf = () => {
-                if (!latestResult) { alert('Không có kết quả để xuất!'); return; }
-                try {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-                    doc.addFileToVFS('Roboto-Regular.ttf', robotoFontBase64);
-                    doc.addFont('Roboto-Regular.ttf', 'Roboto', 'normal');
-                    doc.setFont('Roboto');
-                    let y = 15;
-                    const pageHeight = doc.internal.pageSize.height, leftMargin = 10, maxWidth = 190;
-                    const addText = (text, size, style, indent = 0) => {
-                        if (y > pageHeight - 20) { doc.addPage(); y = 15; }
-                        doc.setFontSize(size);
-                        doc.setFont('Roboto', style);
-                        const lines = doc.splitTextToSize(text, maxWidth - indent);
-                        doc.text(lines, leftMargin + indent, y);
-                        y += (lines.length * (size * 0.35)) + 2;
-                    };
-                    addText('KẾT QUẢ BÀI KIỂM TRA TỪ VỰNG', 18, 'bold');
-                    y += 5;
-                    addText(`Họ và tên: ${latestResult.name}`, 12, 'normal');
-                    addText(`Ngày làm bài: ${latestResult.date}`, 12, 'normal');
-                    addText(`Điểm số: ${latestResult.score} / ${latestResult.total}`, 14, 'bold');
-                    y += 5;
-                    addText('CHI TIẾT BÀI LÀM', 16, 'bold');
-                    quizData.forEach((q, index) => {
-                        const userAnswer = userAnswers[index], isCorrect = userAnswer === q.answer;
-                        if (y > pageHeight - 40) { doc.addPage(); y = 15; }
-                        addText(`Câu ${index + 1}: ${q.question.replace(/<strong>|<\/strong>/g, "")}`, 11, 'bold');
-                        addText(`- Bạn đã chọn: ${userAnswer || 'Chưa trả lời'}`, 11, 'normal', 5);
-                        addText(`- Đáp án đúng: ${q.answer}`, 11, 'normal', 5);
-                        doc.setTextColor(isCorrect ? '#228B22' : '#DC143C'); // Xanh lá cây hoặc đỏ thẫm
-                        addText(`- Kết quả: ${isCorrect ? 'Đúng' : 'Sai'}`, 11, 'bold', 5);
-                        doc.setTextColor('#000000');
-                        y += 4;
-                    });
-                    doc.save(`${getFileName()}.pdf`);
-                } catch (error) {
-                    console.error("Lỗi khi tạo PDF:", error);
-                    alert("Đã xảy ra lỗi khi tạo file PDF. Vui lòng thử lại hoặc dùng định dạng khác.");
-                }
-            };
-
-            const exportDocx = () => {
-                if (!latestResult) { alert('Không có kết quả để xuất!'); return; }
-                try {
-                    const { Document, Packer, Paragraph, TextRun, HeadingLevel } = docx;
-                    const children = [];
-                    children.push(new Paragraph({ heading: HeadingLevel.TITLE, children: [new TextRun("Kết quả bài kiểm tra từ vựng")] }));
-                    children.push(new Paragraph({ children: [new TextRun({ text: `Họ và tên: ${latestResult.name}` })] }));
-                    children.push(new Paragraph({ children: [new TextRun({ text: `Ngày làm bài: ${latestResult.date}` })] }));
-                    children.push(new Paragraph({ children: [new TextRun({ text: `Điểm số: `, size: 28 }), new TextRun({ text: `${latestResult.score} / ${latestResult.total}`, bold: true, size: 28 })] }));
-                    children.push(new Paragraph({ text: "" }));
-                    children.push(new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun("Chi tiết bài làm")] }));
-                    
-                    quizData.forEach((q, index) => {
-                        const userAnswer = userAnswers[index];
-                        const isCorrect = userAnswer === q.answer;
-                        children.push(new Paragraph({ children: [new TextRun({ text: `Câu ${index + 1}: ${q.question.replace(/<strong>|<\/strong>/g, "")}`, bold: true })] }));
-                        children.push(new Paragraph({ text: `\t- Bạn đã chọn: ${userAnswer || 'Chưa trả lời'}` }));
-                        children.push(new Paragraph({ text: `\t- Đáp án đúng: ${q.answer}` }));
-                        children.push(new Paragraph({ children: [
-                            new TextRun({ text: `\t- Kết quả: ` }),
-                            new TextRun({ text: isCorrect ? 'Đúng' : 'Sai', bold: true, color: isCorrect ? "228B22" : "DC143C" })
-                        ]}));
-                        children.push(new Paragraph({ text: "" }));
-                    });
-
-                    const doc = new Document({ sections: [{ children }] });
-                    Packer.toBlob(doc).then(blob => { saveAs(blob, `${getFileName()}.docx`); });
-                } catch(error) {
-                    console.error("Lỗi khi tạo DOCX:", error);
-                    alert("Đã xảy ra lỗi khi tạo file Word. Vui lòng thử lại hoặc dùng định dạng khác.");
-                }
-            };
-
+            // --- EXPORT FUNCTION ---
             const exportXlsx = () => {
                 if (!latestResult) { alert('Không có kết quả để xuất!'); return; }
                 try {
@@ -795,7 +704,7 @@
                     XLSX.writeFile(wb, `${getFileName()}.xlsx`);
                 } catch(error) {
                     console.error("Lỗi khi tạo XLSX:", error);
-                    alert("Đã xảy ra lỗi khi tạo file Excel. Vui lòng thử lại hoặc dùng định dạng khác.");
+                    alert("Đã xảy ra lỗi khi tạo file Excel. Vui lòng thử lại.");
                 }
             };
             
@@ -804,8 +713,6 @@
             dom.submitBtn.addEventListener('click', () => { if (confirm('Bạn có chắc chắn muốn nộp bài không?')) submitQuiz(); });
             dom.reviewAnswersBtn.addEventListener('click', () => showTab('answers'));
             dom.retakeBtn.addEventListener('click', () => location.reload());
-            dom.exportPdfBtn.addEventListener('click', exportPdf);
-            dom.exportDocxBtn.addEventListener('click', exportDocx);
             dom.exportXlsxBtn.addEventListener('click', exportXlsx);
             dom.tabs.forEach(tab => tab.addEventListener('click', () => !tab.disabled && showTab(tab.dataset.tab)));
             
@@ -816,3 +723,4 @@
     </script>
 </body>
 </html>
+
